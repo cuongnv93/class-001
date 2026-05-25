@@ -11,6 +11,7 @@
     // Form inputs
     const inputName = document.getElementById("idcard-input-name");
     const inputNickname = document.getElementById("idcard-input-nickname");
+    const inputClass = document.getElementById("idcard-input-class");
     const selectRole = document.getElementById("idcard-select-role");
     const inputYear = document.getElementById("idcard-input-year");
     const inputFile = document.getElementById("idcard-input-file");
@@ -23,11 +24,13 @@
     const card = document.getElementById("idcard-preview-card");
     const cardWrapper = card.parentElement;
     const cardName = document.getElementById("card-preview-name");
+    const cardClass = document.getElementById("card-preview-class");
     const cardNickname = document.getElementById("card-preview-nickname");
     const cardRole = document.getElementById("card-preview-role");
     const cardYear = document.getElementById("card-preview-year");
     const cardAvatar = document.getElementById("card-preview-avatar");
     const cardSchool = document.getElementById("card-preview-school");
+    const cardFooterClass = document.getElementById("card-preview-footer-class");
 
     // Map theme name -> primary color for default avatar SVG
     const themeColorMap = {
@@ -60,6 +63,18 @@
     if (inputSchool && cardSchool) {
       inputSchool.addEventListener("input", (e) => {
         cardSchool.textContent = e.target.value.trim() || "Tên Trường Học";
+      });
+    }
+
+    if (inputClass) {
+      inputClass.addEventListener("input", (e) => {
+        const val = e.target.value.trim() || "Lớp";
+        if (cardClass) {
+          cardClass.textContent = val;
+        }
+        if (cardFooterClass) {
+          cardFooterClass.textContent = `${val} OFFICIAL`;
+        }
       });
     }
 

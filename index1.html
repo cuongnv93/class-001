@@ -9245,12 +9245,18 @@ var message="NoRightClicking"; function defeatIE() {if (document.all) {(message)
                                 
                                 <div class="form-group">
                                     <label for="idcard-input-school">Tên Trường Học</label>
-                                    <input type="text" id="idcard-input-school" placeholder="Nhập tên trường học..." maxlength="25" value="12A1 ACADEMY">
+                                    <input type="text" id="idcard-input-school" placeholder="Nhập tên trường học..." maxlength="25" value="HIGH SCHOOL ACADEMY">
                                 </div>
                                 
-                                <div class="form-group">
-                                    <label for="idcard-input-nickname">Biệt Danh / Nickname</label>
-                                    <input type="text" id="idcard-input-nickname" placeholder="Ví dụ: Đức Heo, Học Thần..." maxlength="15" value="Học Thần">
+                                <div class="form-row">
+                                    <div class="form-group half-width">
+                                        <label for="idcard-input-nickname">Biệt Danh / Nickname</label>
+                                        <input type="text" id="idcard-input-nickname" placeholder="Ví dụ: Đức Heo, Học Thần..." maxlength="15" value="Học Thần">
+                                    </div>
+                                    <div class="form-group half-width">
+                                        <label for="idcard-input-class">Lớp</label>
+                                        <input type="text" id="idcard-input-class" placeholder="Ví dụ: 12A1" maxlength="10" value="12A1">
+                                    </div>
                                 </div>
                                 
                                 <div class="form-row">
@@ -9333,7 +9339,7 @@ var message="NoRightClicking"; function defeatIE() {if (document.all) {(message)
                                         
                                         <!-- Card Title / School name -->
                                         <div class="card-title-section">
-                                            <span class="card-school-title" id="card-preview-school">12A1 ACADEMY</span>
+                                            <span class="card-school-title" id="card-preview-school">HIGH SCHOOL ACADEMY</span>
                                             <span class="card-badge">STUDENT ID</span>
                                         </div>
                                         
@@ -9366,6 +9372,11 @@ var message="NoRightClicking"; function defeatIE() {if (document.all) {(message)
                                                     <span class="field-label">Student Name</span>
                                                     <span class="field-value text-bold" id="card-preview-name">Nguyễn Anh Đức</span>
                                                 </div>
+
+                                                <div class="card-field">
+                                                    <span class="field-label">Class</span>
+                                                    <span class="field-value" id="card-preview-class">12A1</span>
+                                                </div>
                                                 
                                                 <div class="card-field">
                                                     <span class="field-label">Nickname</span>
@@ -9390,7 +9401,7 @@ var message="NoRightClicking"; function defeatIE() {if (document.all) {(message)
                                         <!-- Card Footer decor -->
                                         <div class="card-footer-decor">
                                             <span class="footer-no">ID: A120232026_09</span>
-                                            <span class="footer-verify">12A1 OFFICIAL</span>
+                                            <span class="footer-verify" id="card-preview-footer-class">12A1 OFFICIAL</span>
                                         </div>
                                      </div>
                                 </div>
@@ -9411,6 +9422,40 @@ var message="NoRightClicking"; function defeatIE() {if (document.all) {(message)
                 <script>
                         // Khởi chạy toàn bộ hệ thống lớp học khi trang sẵn sàng
                         (function () {
+                            function initScrollReveal() {
+                                const customSections = document.querySelectorAll(
+                                    '#SECTION_SEATING_CHART, #SECTION_SUPERLATIVES, #SECTION_CONFESSIONS, #SECTION_WISHING_TREE, #SECTION_MEMORY_TIMELINE, #SECTION_STUDENT_ID_CARD'
+                                );
+                                
+                                if (typeof IntersectionObserver === "undefined") {
+                                    customSections.forEach(section => {
+                                        section.style.opacity = '1';
+                                        section.style.transform = 'none';
+                                    });
+                                    return;
+                                }
+
+                                const observerOptions = {
+                                    root: null,
+                                    rootMargin: '0px',
+                                    threshold: 0.08
+                                };
+
+                                const sectionObserver = new IntersectionObserver((entries, observer) => {
+                                    entries.forEach(entry => {
+                                        if (entry.isIntersecting) {
+                                            entry.target.classList.add('reveal-active');
+                                            observer.unobserve(entry.target);
+                                        }
+                                    });
+                                }, observerOptions);
+
+                                customSections.forEach(section => {
+                                    section.classList.add('custom-section-reveal');
+                                    sectionObserver.observe(section);
+                                });
+                            }
+
                             function initAll() {
                                 if (typeof window.initSeatingChart === "function") window.initSeatingChart();
                                 if (typeof window.initSuperlatives === "function") window.initSuperlatives();
@@ -9419,6 +9464,7 @@ var message="NoRightClicking"; function defeatIE() {if (document.all) {(message)
                                 if (typeof window.initMemoryTimeline === "function") window.initMemoryTimeline();
                                 if (typeof window.initStudentIDCard === "function") window.initStudentIDCard();
                                 if (typeof window.fetchLatestFromGoogleSheets === "function") window.fetchLatestFromGoogleSheets();
+                                initScrollReveal();
                             }
 
                             if (document.readyState === "loading") {

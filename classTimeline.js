@@ -3,57 +3,57 @@
  * Features: Hanging Polaroid photos, clothesline rope, school doodles, scroll parallax paper plane, horizontal drag-to-scroll, active highlighting, Polaroid details modal.
  */
 
-(function() {
+(function () {
   // Memories Database
   const memories = [
     {
       date: "05/09/2023",
       title: "Ngày đầu tiên tựu trường",
       desc: "Những bước chân ngập ngừng bước qua cánh cổng trường cấp 3 thân thương. Mọi gương mặt đều mới lạ, những lời chào bỡ ngỡ đầu tiên đã bắt đầu cho một hành trình thanh xuân rực rỡ của tập thể lớp chúng mình.",
-      img: "./images/1.jpg"
+      img: "./images/1.jpg",
     },
     {
       date: "20/11/2023",
       title: "Tri ân thầy cô giáo",
       desc: "Món quà handmade tự tay cả lớp thức đêm chuẩn bị để dành tặng cô giáo chủ nhiệm. Nụ cười và những giọt nước mắt hạnh phúc của cô là động lực lớn nhất để chúng mình cố gắng học tập tốt hơn mỗi ngày.",
-      img: "./images/3.jpg"
+      img: "./images/3.jpg",
     },
     {
       date: "26/03/2024",
       title: "Hội thao bùng nổ sức trẻ",
       desc: "Những giọt mồ hôi rơi trên sân cỏ, những tiếng hò reo khản cổ từ hàng cổ động viên. Cúp vô địch kéo co và bóng đá nam đã thuộc về lớp chúng mình sau những trận đấu vô cùng kịch tính và quả cảm.",
-      img: "./images/5.jpg"
+      img: "./images/5.jpg",
     },
     {
       date: "15/05/2024",
       title: "Chuyến dã ngoại kỷ niệm",
       desc: "Rời xa phấn bảng và sách vở, chúng mình đã có một chuyến cắm trại tuyệt vời giữa thiên nhiên. Cùng dựng lều, nướng thịt và hát ca quanh ngọn lửa trại ấm áp dưới bầu trời đêm đầy sao.",
-      img: "./images/7.jpg"
+      img: "./images/7.jpg",
     },
     {
       date: "16/01/2025",
       title: "Hội diễn văn nghệ tỏa sáng",
       desc: "Tiết mục kịch kết hợp múa đương đại tự biên tự diễn của lớp đã xuất sắc giành giải Nhất toàn trường. Những đêm tập muộn mệt lả người nhưng tràn ngập tiếng cười đùa tinh nghịch.",
-      img: "./images/9.jpg"
+      img: "./images/9.jpg",
     },
     {
       date: "08/03/2025",
       title: "Yêu thương gửi các bạn nữ",
       desc: "Các bạn nam trong lớp đã bí mật chuẩn bị những chiếc bánh ngọt ngọt ngào và những bông hoa hồng xinh xắn để dành tặng cho các cô gái xinh đẹp của lớp. Một ngày ngập tràn tiếng cười ấm áp.",
-      img: "./images/11.jpg"
+      img: "./images/11.jpg",
     },
     {
       date: "20/04/2026",
       title: "Buổi chụp ảnh kỷ yếu",
       desc: "Cơn mưa rào mùa hạ không ngăn được chúng mình khoác lên mình tà áo dài trắng và bộ vest trang trọng. Những bức ảnh ghi lại nụ cười rạng rỡ nhất của tuổi 18 dưới mái trường thân yêu.",
-      img: "./images/13.jpg"
+      img: "./images/13.jpg",
     },
     {
       date: "25/05/2026",
       title: "Lễ bế giảng - Tạm biệt nhé!",
       desc: "Tiếng ve kêu râm ran và sắc phượng đỏ rực báo hiệu giờ chia tay đã điểm. Những cái ôm thật chặt, những dòng lưu bút viết vội lên áo và những giọt nước mắt chia ly. Khép lại 3 năm học nhưng mở ra tình bạn vĩnh cửu.",
-      img: "./images/15.jpg"
-    }
+      img: "./images/15.jpg",
+    },
   ];
 
   function initMemoryTimeline() {
@@ -80,7 +80,9 @@
     scrollContent.style.width = `${totalWidth}px`;
 
     // 2. Render milestones (Polaroids)
-    const milestoneContainer = scrollContent.querySelector(".timeline-milestones-container");
+    const milestoneContainer = scrollContent.querySelector(
+      ".timeline-milestones-container",
+    );
     milestoneContainer.innerHTML = ""; // Reset
 
     memories.forEach((memory, index) => {
@@ -119,7 +121,9 @@
     });
 
     // 3. Scatter school doodles in the background
-    let doodlesContainer = scrollContent.querySelector(".timeline-doodles-container");
+    let doodlesContainer = scrollContent.querySelector(
+      ".timeline-doodles-container",
+    );
     if (!doodlesContainer) {
       doodlesContainer = document.createElement("div");
       doodlesContainer.className = "timeline-doodles-container";
@@ -182,12 +186,16 @@
     });
 
     // 5. Wheel event redirection (vertical scroll -> horizontal scroll)
-    scrollWrapper.addEventListener("wheel", (e) => {
-      if (e.deltaY !== 0) {
-        e.preventDefault();
-        scrollWrapper.scrollLeft += e.deltaY * 0.8;
-      }
-    }, { passive: false });
+    scrollWrapper.addEventListener(
+      "wheel",
+      (e) => {
+        if (e.deltaY !== 0) {
+          e.preventDefault();
+          scrollWrapper.scrollLeft += e.deltaY * 0.8;
+        }
+      },
+      { passive: false },
+    );
 
     // 6. Navigation Buttons
     if (prevBtn && nextBtn) {
@@ -204,7 +212,8 @@
     function updateActiveMilestone() {
       const wrapperRect = scrollWrapper.getBoundingClientRect();
       const centerX = wrapperRect.left + wrapperRect.width / 2;
-      const milestoneElements = milestoneContainer.querySelectorAll(".milestone");
+      const milestoneElements =
+        milestoneContainer.querySelectorAll(".milestone");
 
       let closestMilestone = null;
       let minDistance = Infinity;

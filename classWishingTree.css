@@ -1,0 +1,746 @@
+/* CUSTOM WISHING TREE SECTION - PREMIUM LUXURY EDITION CSS */
+
+/* Prevent collisions by scoping under .custom-wishing-tree-section */
+.custom-wishing-tree-section {
+    position: relative;
+    padding: 80px 0;
+    background: linear-gradient(180deg, #FFFFFF 0%, #F2F9F5 50%, #EAF2EC 100%);
+    color: #3C2E2B !important;
+    font-family: 'Outfit', 'Segoe UI', Arial, sans-serif !important;
+    overflow: hidden;
+}
+
+.custom-wishing-tree-section .wishing-tree-container {
+    width: 100%;
+    max-width: 960px;
+    margin: 0 auto;
+    position: relative;
+    height: auto !important;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    z-index: 2;
+}
+
+/* Flex Wrapper for columns */
+.wishing-tree-wrapper {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+/* Tree Display Column */
+.wishing-tree-display {
+    flex: 1.3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+}
+
+.wishing-tree-canvas {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    height: 480px;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 32px;
+    border: 1px solid rgba(168, 213, 186, 0.2);
+    box-shadow: inset 0 0 30px rgba(85, 176, 121, 0.03), 0 10px 30px rgba(0, 0, 0, 0.02);
+    backdrop-filter: blur(8px);
+    overflow: hidden;
+}
+
+/* Tree Image Styling */
+
+.wishing-tree-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    mix-blend-mode: multiply;
+    pointer-events: none;
+    transform-origin: bottom center;
+    animation: treeBreathe 8s ease-in-out infinite;
+}
+
+/* Breathing animation for the tree image */
+@keyframes treeBreathe {
+    0% { transform: scale(1) rotate(0deg); }
+    50% { transform: scale(1.015) rotate(0.6deg); }
+    100% { transform: scale(1) rotate(0deg); }
+}
+
+/* Action buttons styling */
+.wishing-tree-actions {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.wishing-action-btn {
+    padding: 12px 28px;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 1px solid rgba(85, 176, 121, 0.3);
+    background: #FFFFFF;
+    color: rgb(85, 176, 121);
+    box-shadow: 0 4px 15px rgba(85, 176, 121, 0.06);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.wishing-action-btn:hover {
+    transform: translateY(-2px);
+    background: rgb(85, 176, 121);
+    color: #FFFFFF;
+    box-shadow: 0 8px 20px rgba(85, 176, 121, 0.25);
+    border-color: rgb(85, 176, 121);
+}
+
+/* Wishing Form Column */
+.wishing-tree-form-card {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(85, 176, 121, 0.15);
+    backdrop-filter: blur(12px);
+    border-radius: 24px;
+    padding: 30px;
+    box-shadow: 0 15px 35px rgba(85, 176, 121, 0.04);
+    width: 100%;
+}
+
+.wishing-tree-form-card h4 {
+    font-family: 'Philosopher', 'Georgia', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: #3C2E2B;
+    margin-top: 0;
+    margin-bottom: 20px;
+    text-align: center;
+    letter-spacing: 0.5px;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.wishing-tree-form-card h4::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 2px;
+    background: rgb(85, 176, 121);
+    border-radius: 2px;
+}
+
+.wishing-form-row {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.wishing-form-row input {
+    padding: 12px 16px;
+    border-radius: 12px;
+    border: 1px solid rgba(85, 176, 121, 0.15);
+    background-color: #fff;
+    font-size: 13px;
+    color: #3C2E2B;
+    outline: none;
+    font-family: inherit;
+    transition: all 0.3s;
+    width: 100%;
+}
+
+.wishing-form-row input:focus,
+.wishing-tree-form-card textarea:focus {
+    border-color: rgb(85, 176, 121);
+    box-shadow: 0 0 0 3px rgba(85, 176, 121, 0.1);
+}
+
+.wishing-tree-form-card textarea {
+    width: 100%;
+    height: 110px;
+    padding: 14px 16px;
+    border-radius: 12px;
+    border: 1px solid rgba(85, 176, 121, 0.15);
+    background-color: #fff;
+    font-size: 13px;
+    color: #3C2E2B;
+    outline: none;
+    resize: none;
+    font-family: inherit;
+    margin-bottom: 15px;
+    line-height: 1.6;
+    transition: all 0.3s;
+}
+
+/* Theme selector radios */
+.leaf-theme-selector {
+    display: flex;
+    gap: 10px;
+    margin-top: 5px;
+}
+
+.leaf-theme-option {
+    flex: 1;
+    cursor: pointer;
+    position: relative;
+}
+
+.leaf-theme-option input {
+    display: none; /* Hide standard radio */
+}
+
+.theme-preview {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 5px;
+    border-radius: 10px;
+    border: 1.5px solid rgba(0, 0, 0, 0.08);
+    font-size: 12px;
+    font-weight: 600;
+    transition: all 0.25s;
+    text-align: center;
+    background: #fff;
+}
+
+.theme-preview.red {
+    color: #C92A2A;
+}
+.theme-preview.green {
+    color: #3E7C59;
+}
+.theme-preview.gold {
+    color: #B5841B;
+}
+
+/* Checked styling */
+.leaf-theme-option input:checked + .theme-preview.red {
+    background: #FFF5F5;
+    border-color: #C92A2A;
+    box-shadow: 0 4px 10px rgba(197, 42, 42, 0.15);
+}
+.leaf-theme-option input:checked + .theme-preview.green {
+    background: #EEF8F1;
+    border-color: #55B079;
+    box-shadow: 0 4px 10px rgba(85, 176, 121, 0.15);
+}
+.leaf-theme-option input:checked + .theme-preview.gold {
+    background: #FCF7E9;
+    border-color: #ECC158;
+    box-shadow: 0 4px 10px rgba(236, 193, 88, 0.15);
+}
+
+.wishing-submit-btn {
+    width: 100%;
+    padding: 13px 20px;
+    background: linear-gradient(135deg, rgb(85, 176, 121) 0%, rgb(168, 213, 186) 100%);
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 6px 15px rgba(85, 176, 121, 0.2);
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.wishing-submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(85, 176, 121, 0.3);
+}
+
+/* WISHING LEAVES HANGING ON THE TREE */
+@keyframes leafSway {
+    0% { transform: rotate(-5deg); }
+    100% { transform: rotate(5deg); }
+}
+
+.wishing-leaf {
+    position: absolute;
+    transform-origin: top center;
+    animation: leafSway 3s ease-in-out infinite alternate;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.3s;
+}
+
+/* Thread hanging down */
+.wishing-leaf-thread {
+    width: 1px;
+    height: 18px;
+    background: linear-gradient(to bottom, rgba(78, 54, 41, 0.5) 0%, rgba(85, 176, 121, 0.4) 100%);
+}
+
+/* Hanging tag/leaf itself (Japanese Tanzaku style - Vertical Strip) */
+.wishing-leaf-tag {
+    width: 22px;
+    height: 85px;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    background-size: cover;
+}
+
+/* String hole at the top of vertical tag */
+.wishing-leaf-tag::before {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 4px;
+    background: #FFFFFF;
+    border-radius: 50%;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,0.3);
+    z-index: 5;
+}
+
+/* Vertical Text inside Tanzaku tag */
+.wishing-leaf-tag-text {
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-top: 12px;
+    height: 65px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    white-space: nowrap;
+    text-align: center;
+    font-family: 'Philosopher', 'Georgia', serif;
+}
+
+.wishing-leaf-tag.red {
+    background: linear-gradient(to bottom, #FFF0F0 0%, #FFD8D8 100%);
+    color: #C92A2A;
+    border-left: 2px solid #FF8787;
+}
+
+.wishing-leaf-tag.green {
+    background: linear-gradient(to bottom, #EEF8F1 0%, #D8F0DF 100%);
+    color: #3E7C59;
+    border-left: 2px solid #A8D5BA;
+}
+
+.wishing-leaf-tag.gold {
+    background: linear-gradient(to bottom, #FCF7E9 0%, #F5ECC9 100%);
+    color: #B5841B;
+    border-left: 2px solid #ECC158;
+}
+
+/* Hover effect on leaf - GLOW & scale */
+.wishing-leaf:hover {
+    animation-play-state: paused !important;
+    transform: scale(1.22) rotate(0deg) !important;
+    z-index: 100;
+}
+
+.wishing-leaf:hover .wishing-leaf-tag.red {
+    box-shadow: 0 0 15px rgba(197, 42, 42, 0.85);
+    border-color: rgba(197, 42, 42, 0.8);
+    filter: drop-shadow(0 0 4px rgba(197, 42, 42, 0.6));
+}
+
+.wishing-leaf:hover .wishing-leaf-tag.green {
+    box-shadow: 0 0 15px rgba(85, 176, 121, 0.85);
+    border-color: rgba(85, 176, 121, 0.8);
+    filter: drop-shadow(0 0 4px rgba(85, 176, 121, 0.6));
+}
+
+.wishing-leaf:hover .wishing-leaf-tag.gold {
+    box-shadow: 0 0 15px rgba(236, 193, 88, 0.85);
+    border-color: rgba(236, 193, 88, 0.8);
+    filter: drop-shadow(0 0 4px rgba(236, 193, 88, 0.6));
+}
+
+/* Growing glowing effects for new elements */
+@keyframes tagPulseRed {
+    0% { box-shadow: 0 0 0 0 rgba(197, 42, 42, 0.5); }
+    70% { box-shadow: 0 0 0 8px rgba(197, 42, 42, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(197, 42, 42, 0); }
+}
+@keyframes tagPulseGreen {
+    0% { box-shadow: 0 0 0 0 rgba(85, 176, 121, 0.5); }
+    70% { box-shadow: 0 0 0 8px rgba(85, 176, 121, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(85, 176, 121, 0); }
+}
+@keyframes tagPulseGold {
+    0% { box-shadow: 0 0 0 0 rgba(236, 193, 88, 0.5); }
+    70% { box-shadow: 0 0 0 8px rgba(236, 193, 88, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(236, 193, 88, 0); }
+}
+
+.wishing-leaf.new-wish .wishing-leaf-tag.red {
+    animation: tagPulseRed 1.5s infinite;
+}
+.wishing-leaf.new-wish .wishing-leaf-tag.green {
+    animation: tagPulseGreen 1.5s infinite;
+}
+.wishing-leaf.new-wish .wishing-leaf-tag.gold {
+    animation: tagPulseGold 1.5s infinite;
+}
+
+/* Tooltip on Hover */
+.wishing-leaf-tooltip {
+    position: absolute;
+    bottom: 100%;
+    margin-bottom: 8px;
+    background: rgba(60, 46, 43, 0.9);
+    color: #FFFDFD;
+    font-size: 9px;
+    font-weight: 500;
+    padding: 4px 8px;
+    border-radius: 6px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.2s;
+    pointer-events: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.wishing-leaf-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 4px solid transparent;
+    border-top-color: rgba(60, 46, 43, 0.9);
+}
+
+.wishing-leaf:hover .wishing-leaf-tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(-2px);
+}
+
+/* MODAL WINDOW SYSTEM */
+.wishing-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000000000; /* High enough to overlay LadiPage elements */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.35s ease, visibility 0.35s ease;
+}
+
+.wishing-modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.wishing-modal-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(30, 20, 20, 0.6);
+    backdrop-filter: blur(8px);
+}
+
+.wishing-modal-content {
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(168, 213, 186, 0.3);
+    box-shadow: 0 20px 50px rgba(30, 20, 20, 0.3);
+    border-radius: 28px;
+    padding: 40px;
+    width: 90%;
+    max-width: 480px;
+    position: relative;
+    z-index: 2;
+    transform: scale(0.85);
+    transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    backdrop-filter: blur(12px);
+    overflow: hidden;
+}
+
+.wishing-modal.active .wishing-modal-content {
+    transform: scale(1);
+}
+
+.wishing-modal-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px solid rgba(85, 176, 121, 0.3);
+    background: rgba(85, 176, 121, 0.05);
+    color: rgb(85, 176, 121);
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.25s;
+    padding: 0;
+}
+
+.wishing-modal-close:hover {
+    background: rgb(85, 176, 121);
+    color: #fff;
+    transform: rotate(90deg);
+}
+
+/* Detail view wish card inside modal */
+.wish-card-detail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+    padding-top: 10px;
+}
+
+.wish-card-icon {
+    font-size: 48px;
+    line-height: 1;
+    filter: drop-shadow(0 4px 10px rgba(85, 176, 121, 0.15));
+    animation: floatingIcon 3s ease-in-out infinite alternate;
+}
+
+@keyframes floatingIcon {
+    0% { transform: translateY(0px) rotate(-3deg); }
+    100% { transform: translateY(-8px) rotate(3deg); }
+}
+
+.wish-card-text {
+    font-family: 'Philosopher', 'Georgia', serif;
+    font-size: 18px;
+    line-height: 1.7;
+    font-style: italic;
+    color: #4A3A35;
+    margin: 0;
+    max-height: 250px;
+    overflow-y: auto;
+    padding: 0 10px;
+}
+
+.wish-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    border-top: 1px dashed rgba(85, 176, 121, 0.15);
+    padding-top: 15px;
+    font-size: 12px;
+    font-weight: 600;
+    color: rgb(85, 176, 121);
+    margin-top: 10px;
+}
+
+.wish-card-author {
+    font-family: 'Outfit', sans-serif;
+}
+
+.wish-card-time {
+    opacity: 0.8;
+}
+
+/* ALL WISHES GRID MODAL (LIST MODE) */
+.wishing-modal-content.list-mode {
+    max-width: 800px;
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+}
+
+.wishing-modal-content.list-mode h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    text-align: center;
+    font-family: 'Philosopher', 'Georgia', serif;
+    color: #3C2E2B;
+    letter-spacing: 1px;
+    font-size: 22px;
+}
+
+.wishes-grid-container {
+    flex: 1;
+    overflow-y: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    gap: 20px;
+    padding: 10px 5px;
+}
+
+/* Wish note card on the grid */
+.wish-grid-card {
+    min-height: 160px;
+    padding: 20px;
+    border-radius: 16px;
+    border: 1px solid rgba(168, 213, 186, 0.15);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.03);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    cursor: pointer;
+}
+
+.wish-grid-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(85, 176, 121, 0.12);
+}
+
+.wish-grid-card.red {
+    background: linear-gradient(135deg, #FFF0F0 0%, #FFD8D8 100%);
+    border-color: rgba(197, 42, 42, 0.15);
+}
+.wish-grid-card.green {
+    background: linear-gradient(135deg, #EEF8F1 0%, #D8F0DF 100%);
+    border-color: rgba(62, 124, 89, 0.15);
+}
+.wish-grid-card.gold {
+    background: linear-gradient(135deg, #FCF7E9 0%, #F5ECC9 100%);
+    border-color: rgba(181, 132, 27, 0.15);
+}
+
+.wish-grid-card .grid-card-text {
+    font-family: 'Philosopher', 'Georgia', serif;
+    font-size: 13px;
+    line-height: 1.6;
+    font-style: italic;
+    color: #4A3A35;
+    margin-bottom: 12px;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.wish-grid-card .grid-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px dashed rgba(85, 176, 121, 0.1);
+    padding-top: 8px;
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.wish-grid-card.red .grid-card-footer { color: #C92A2A; }
+.wish-grid-card.green .grid-card-footer { color: #3E7C59; }
+.wish-grid-card.gold .grid-card-footer { color: #B5841B; }
+
+/* FLOATING SAKURA/PARTICLE EFFECTS */
+.wishing-particle {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: #A8D5BA;
+    border-radius: 50% 0 50% 50%; /* Petal shape */
+    pointer-events: none;
+    opacity: 0;
+    z-index: 1;
+}
+
+.wishing-particle.sparkle {
+    border-radius: 50%;
+    background: radial-gradient(circle, #FFE5A3 0%, rgba(255, 255, 255, 0) 70%);
+}
+
+@keyframes fallPetal {
+    0% {
+        transform: translateY(-20px) translateX(0) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.8;
+    }
+    90% {
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateY(500px) translateX(var(--target-x-shift, 80px)) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+@keyframes floatSparkle {
+    0% {
+        transform: translateY(var(--start-y, 300px)) translateX(0) scale(0.4);
+        opacity: 0;
+    }
+    30% {
+        opacity: 0.9;
+    }
+    70% {
+        opacity: 0.9;
+        transform: translateY(calc(var(--start-y, 300px) - 60px)) translateX(var(--target-x-shift, 30px)) scale(1.1);
+    }
+    100% {
+        transform: translateY(calc(var(--start-y, 300px) - 120px)) translateX(calc(var(--target-x-shift, 30px) * 1.5)) scale(0.4);
+        opacity: 0;
+    }
+}
+
+/* RESPONSIVE LAYOUT OVERRIDES */
+@media (max-width: 959px) {
+    .custom-wishing-tree-section {
+        padding: 50px 0;
+    }
+
+    .custom-wishing-tree-section .wishing-tree-container {
+        max-width: 420px;
+        padding: 0 15px;
+        gap: 25px;
+    }
+
+    .wishing-tree-wrapper {
+        flex-direction: column;
+        gap: 25px;
+        align-items: stretch;
+    }
+
+    .wishing-tree-canvas {
+        height: 380px;
+    }
+
+    .wishing-tree-form-card {
+        width: 100%;
+        padding: 25px 20px;
+    }
+    
+    .wishes-grid-container {
+        grid-template-columns: 1fr; /* 1 column on small screens */
+    }
+}

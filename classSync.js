@@ -39,6 +39,11 @@
                 localStorage.setItem("anonymous_confessions", JSON.stringify(window.currentConfessions));
                 if (typeof window.renderConfessionsBoard === "function") window.renderConfessionsBoard();
             }
+            if (data.wishes) {
+                window.currentWishes = data.wishes;
+                localStorage.setItem("class_wishes", JSON.stringify(window.currentWishes));
+                if (typeof window.renderWishingTree === "function") window.renderWishingTree();
+            }
         })
         .catch(err => console.warn("Google Sheets data fetch failed:", err));
     };

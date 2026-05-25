@@ -1,0 +1,603 @@
+/* ==========================================================================
+   MEMORY TIMELINE BULLETIN BOARD - CSS STYLING
+   ========================================================================== */
+
+:root {
+  --timeline-green-primary: #55b079;
+  --timeline-green-light: #c8e6c9;
+  --timeline-green-deep: #2e7d32;
+  --timeline-board-bg: #FAF8F5; /* Milk paper color */
+}
+
+/* SECTION CONTAINER */
+.custom-timeline-section {
+  position: relative;
+  width: 100%;
+  height: 680px; /* Increased height to prevent bottom cutoff */
+  background-color: var(--timeline-board-bg);
+  /* Notebook Grid Paper Pattern */
+  background-image: 
+    linear-gradient(rgba(85, 176, 121, 0.06) 1.5px, transparent 1.5px),
+    linear-gradient(90deg, rgba(85, 176, 121, 0.06) 1.5px, transparent 1.5px);
+  background-size: 26px 26px;
+  border-top: 14px solid #8d6e63; /* Wooden borders */
+  border-bottom: 14px solid #8d6e63;
+  box-sizing: border-box;
+  overflow: hidden;
+  font-family: 'Outfit', 'Inter', system-ui, -apple-system, sans-serif;
+  user-select: none;
+}
+
+/* DECORATIONS AREA */
+.timeline-board-decorations {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 8;
+}
+
+.board-ivy {
+  position: absolute;
+  width: 130px;
+  height: 130px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.8;
+  z-index: 8;
+}
+
+.ivy-top-left {
+  top: 10px;
+  left: 10px;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path d='M10,0 C20,20 20,40 10,60 C5,70 15,80 30,70 C50,55 45,30 35,10 Z' fill='%2355b079' opacity='0.75'/><path d='M0,10 C15,30 30,30 40,20 C50,10 40,0 20,5 Z' fill='%232e7d32' opacity='0.85'/><path d='M5,0 C30,10 60,30 70,60 C75,75 60,85 50,70 C40,55 30,45 10,30 Z' fill='%23c8e6c9' opacity='0.65'/></svg>");
+}
+
+.ivy-top-right {
+  top: 10px;
+  right: 10px;
+  transform: scaleX(-1);
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path d='M10,0 C20,20 20,40 10,60 C5,70 15,80 30,70 C50,55 45,30 35,10 Z' fill='%2355b079' opacity='0.75'/><path d='M0,10 C15,30 30,30 40,20 C50,10 40,0 20,5 Z' fill='%232e7d32' opacity='0.85'/><path d='M5,0 C30,10 60,30 70,60 C75,75 60,85 50,70 C40,55 30,45 10,30 Z' fill='%23c8e6c9' opacity='0.65'/></svg>");
+}
+
+/* Floating Paper Plane doodle */
+.paper-plane-fly {
+  position: absolute;
+  width: 45px;
+  height: 45px;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2355b079'><path d='M2 21l21-9L2 3v7l15 2-15 2v7z'/></svg>");
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.18;
+  pointer-events: none;
+  z-index: 2;
+  animation: flyAcross 25s linear infinite;
+}
+
+@keyframes flyAcross {
+  0% { transform: translate(-50px, 140px) rotate(15deg); }
+  50% { transform: translate(50vw, 90px) rotate(5deg); }
+  100% { transform: translate(100vw, 160px) rotate(20deg); }
+}
+
+/* SECTION HEADER - Board Sign */
+.timeline-section-header {
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  z-index: 25;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 10px 30px;
+  border-radius: 30px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05), inset 0 0 10px rgba(85, 176, 121, 0.05);
+  border: 2px dashed var(--timeline-green-primary);
+  max-width: 80%;
+  pointer-events: auto;
+}
+
+.timeline-section-header .seating-title-main {
+  color: var(--timeline-green-deep) !important;
+  font-family: 'Philosopher', sans-serif !important;
+  font-weight: 700;
+  margin: 0 0 3px 0 !important;
+  font-size: 24px !important;
+  text-shadow: none !important;
+  letter-spacing: 0.5px;
+}
+
+.timeline-section-header .seating-title-sub {
+  color: #666666 !important;
+  font-size: 13px !important;
+  margin: 0 !important;
+  text-shadow: none !important;
+}
+
+/* HORIZONTAL SCROLL TIMELINE CONTAINER */
+.timeline-scroll-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  cursor: grab;
+  z-index: 10;
+  scrollbar-width: none; /* Firefox */
+}
+
+.timeline-scroll-wrapper::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
+.timeline-scroll-wrapper:active {
+  cursor: grabbing;
+}
+
+.timeline-scroll-content {
+  position: relative;
+  height: 100%;
+  min-width: 100%;
+  display: block;
+}
+
+/* THE HANGING ROPE/STRING */
+.timeline-rope-line {
+  position: absolute;
+  top: 220px; /* Positioned higher to give cards more space at the bottom */
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: repeating-linear-gradient(45deg, #a1887f, #a1887f 8px, #8d6e63 8px, #8d6e63 16px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
+  z-index: 5;
+}
+
+/* MILESTONE CONTAINERS (Polaroid Elements) */
+.timeline-milestones-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 15;
+  pointer-events: none; /* Let drag events fall through to scroll-wrapper */
+}
+
+.milestone {
+  position: absolute;
+  top: 220px; /* Aligned with the new rope height */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform-origin: top center;
+  z-index: 15;
+  cursor: pointer;
+  pointer-events: auto; /* Active elements inside milestones */
+}
+
+/* Swing Animations for Physics Effect */
+.milestone.swing-1 {
+  animation: swing1 5s ease-in-out infinite;
+}
+.milestone.swing-2 {
+  animation: swing2 5.5s ease-in-out infinite 0.3s;
+}
+.milestone.swing-3 {
+  animation: swing3 6s ease-in-out infinite 0.6s;
+}
+
+@keyframes swing1 {
+  0%, 100% { transform: rotate(-3deg); }
+  50% { transform: rotate(3deg); }
+}
+@keyframes swing2 {
+  0%, 100% { transform: rotate(2.5deg); }
+  50% { transform: rotate(-2.5deg); }
+}
+@keyframes swing3 {
+  0%, 100% { transform: rotate(-2deg); }
+  50% { transform: rotate(2deg); }
+}
+
+/* WOODEN PEG (CLIP) */
+.milestone-peg {
+  position: absolute;
+  top: -12px; /* Center clip on rope */
+  width: 14px;
+  height: 28px;
+  background: #d7ccc8;
+  border-radius: 2px;
+  border: 1.5px solid #bcaaa4;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+  z-index: 30;
+}
+/* Metal wire spring on the clip */
+.milestone-peg::after {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: #78909c;
+}
+
+/* HANGING STRING */
+.milestone-string {
+  width: 1.5px;
+  background: #8d6e63;
+  box-shadow: 1px 0 2px rgba(0,0,0,0.1);
+  z-index: 14;
+}
+
+/* POLAROID PHOTO CARD */
+.milestone-card {
+  background: #ffffff;
+  padding: 10px 10px 18px 10px;
+  border-radius: 3px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  width: 190px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.2), box-shadow 0.4s, border-color 0.4s;
+  position: relative;
+  z-index: 12;
+  box-sizing: border-box;
+}
+
+/* Inside Polaroid Photo Frame */
+.milestone-img-wrapper {
+  width: 100%;
+  height: 150px;
+  overflow: hidden;
+  position: relative;
+  background-color: #f5f5f5;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 2px;
+}
+
+.milestone-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+/* Sticky tape or paper clip decoration */
+.milestone-card::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: 30px;
+  width: 40px;
+  height: 12px;
+  background: rgba(200, 230, 201, 0.6); /* Washi tape */
+  transform: rotate(-10deg);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+/* Note Details (Handwritten typography) */
+.milestone-note {
+  margin-top: 10px;
+  width: 100%;
+  text-align: center;
+  overflow: hidden;
+}
+
+.milestone-date {
+  font-family: 'Patrick Hand', 'Sriracha', cursive;
+  font-size: 13px;
+  color: #777777;
+  display: block;
+  margin-bottom: 2px;
+}
+
+.milestone-title {
+  font-family: 'Caveat', 'Sriracha', cursive;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--timeline-green-deep);
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0 4px;
+}
+
+/* SCHOOL DOODLES FOR EXTRA CREATIVITY */
+.timeline-doodles-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9;
+}
+
+.doodle-element {
+  position: absolute;
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.12;
+  filter: grayscale(1);
+  transition: opacity 0.3s, transform 0.5s;
+}
+
+.doodle-element.pencil {
+  width: 40px;
+  height: 40px;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2355b079'><path d='M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z'/></svg>");
+}
+
+.doodle-element.book {
+  width: 45px;
+  height: 45px;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2355b079'><path d='M12 3c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L4.35 19.4c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0l1.9-1.9C9.07 19.58 10.48 20 12 20c4.97 0 9-4.03 9-9s-4.03-9-9-9zm0 15c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z'/></svg>");
+}
+
+.doodle-element.star {
+  width: 30px;
+  height: 30px;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2355b079'><path d='M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z'/></svg>");
+  animation: pulseStar 3s ease-in-out infinite;
+}
+
+@keyframes pulseStar {
+  0%, 100% { transform: scale(1); opacity: 0.12; }
+  50% { transform: scale(1.2); opacity: 0.22; }
+}
+
+/* ACTIVE & HOVER STATES - GLOW & LIGHT UP EFFECTS */
+.milestone::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 260px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(200, 230, 201, 0.6) 0%, rgba(200, 230, 201, 0) 70%);
+  transform: translate(-50%, -40%) scale(0.6);
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.2), opacity 0.4s;
+  opacity: 0;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.milestone:hover::after, .milestone.active::after {
+  transform: translate(-50%, -40%) scale(1.3);
+  opacity: 1; /* Soft green light behind the hovered/active card */
+}
+
+.milestone:hover {
+  z-index: 100;
+  animation-play-state: paused; /* Freeze swing on hover */
+}
+
+.milestone:hover .milestone-card, .milestone.active .milestone-card {
+  transform: scale(1.15) rotate(0deg);
+  box-shadow: 0 20px 40px rgba(85, 176, 121, 0.3), 0 0 20px rgba(85, 176, 121, 0.5), inset 0 0 10px rgba(255, 255, 255, 0.8);
+  border-color: var(--timeline-green-primary);
+  background-color: #ffffff;
+  filter: brightness(1.04) contrast(1.02); /* Boost brightness of entire card when hovered */
+}
+
+.milestone:hover .milestone-thumb, .milestone.active .milestone-thumb {
+  transform: scale(1.05);
+  filter: brightness(1.1) contrast(1.05); /* Highlight the picture itself */
+}
+
+.milestone:hover .milestone-title, .milestone.active .milestone-title {
+  color: #1b5e20;
+}
+
+/* NAVIGATION CONTROLS */
+.timeline-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.95);
+  border: 2px solid var(--timeline-green-light);
+  color: var(--timeline-green-primary);
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+  z-index: 25;
+}
+
+.timeline-nav-btn:hover {
+  background: var(--timeline-green-primary);
+  color: #ffffff;
+  border-color: var(--timeline-green-primary);
+  box-shadow: 0 6px 20px rgba(85, 176, 121, 0.3);
+  transform: translateY(-50%) scale(1.08);
+}
+
+.timeline-nav-btn.prev { left: 20px; }
+.timeline-nav-btn.next { right: 20px; }
+
+/* MODAL DETAIL WINDOW (Polaroid Style) */
+.timeline-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(18, 38, 25, 0.8);
+  backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  z-index: 999999;
+}
+
+.timeline-modal.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.timeline-modal-content {
+  background: #ffffff;
+  padding: 16px 16px 36px 16px;
+  border-radius: 4px;
+  max-width: 450px;
+  width: 90%;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
+  transform: scale(0.85) rotate(-2.5deg);
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.25);
+  position: relative;
+  border: 1px solid rgba(0,0,0,0.06);
+}
+
+.timeline-modal.show .timeline-modal-content {
+  transform: scale(1) rotate(0deg);
+}
+
+.timeline-modal-close {
+  position: absolute;
+  top: -45px;
+  right: -10px;
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  font-size: 36px;
+  cursor: pointer;
+  transition: transform 0.2s;
+  padding: 5px;
+}
+
+.timeline-modal-close:hover {
+  transform: scale(1.15) rotate(90deg);
+}
+
+/* Polaroid modal photo border */
+.timeline-modal-img-wrapper {
+  width: 100%;
+  height: 310px;
+  background: #f0f0f0;
+  overflow: hidden;
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 2px;
+}
+
+.timeline-modal-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.timeline-modal-body {
+  padding-top: 18px;
+  box-sizing: border-box;
+}
+
+.timeline-modal-date {
+  font-family: 'Patrick Hand', 'Sriracha', cursive;
+  font-size: 15px;
+  color: var(--timeline-green-primary);
+  margin: 0 0 4px 0;
+  letter-spacing: 0.5px;
+}
+
+.timeline-modal-title {
+  font-family: 'Caveat', 'Sriracha', cursive;
+  font-size: 26px;
+  font-weight: 700;
+  color: #122619;
+  margin: 0 0 10px 0;
+  line-height: 1.2;
+}
+
+.timeline-modal-desc {
+  font-family: 'Outfit', 'Inter', sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #555555;
+  margin: 0;
+}
+
+/* RESPONSIVE LAYOUT adjustments */
+@media (max-width: 767px) {
+  .custom-timeline-section {
+    height: 580px; /* Increased mobile container height */
+  }
+  
+  .timeline-section-header {
+    top: 20px;
+    padding: 8px 16px;
+    width: 85%;
+  }
+
+  .timeline-section-header .seating-title-main {
+    font-size: 19px !important;
+  }
+  
+  .timeline-section-header .seating-title-sub {
+    font-size: 11.5px !important;
+  }
+
+  .timeline-rope-line {
+    top: 170px; /* Positioned higher to give room for cards */
+  }
+
+  .milestone {
+    top: 170px;
+  }
+
+  .milestone-card {
+    width: 145px;
+    padding: 8px 8px 14px 8px;
+  }
+
+  .milestone-img-wrapper {
+    height: 110px;
+  }
+
+  .milestone-title {
+    font-size: 17px;
+  }
+
+  .timeline-modal-content {
+    max-width: 360px;
+    padding: 12px 12px 28px 12px;
+  }
+
+  .timeline-modal-img-wrapper {
+    height: 220px;
+  }
+
+  .timeline-modal-title {
+    font-size: 21px;
+  }
+
+  .timeline-modal-desc {
+    font-size: 13px;
+  }
+
+  .timeline-nav-btn {
+    width: 42px;
+    height: 42px;
+    font-size: 16px;
+  }
+  
+  .timeline-nav-btn.prev { left: 10px; }
+  .timeline-nav-btn.next { right: 10px; }
+}

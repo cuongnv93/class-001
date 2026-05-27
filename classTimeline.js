@@ -185,13 +185,26 @@
       scrollWrapper.scrollLeft = scrollLeft - walk;
     });
 
-    // 5. Wheel event redirection (vertical scroll -> horizontal scroll)
+    // 5. Wheel event redirection with Edge-Release UX
     scrollWrapper.addEventListener(
       "wheel",
       (e) => {
         if (e.deltaY !== 0) {
-          e.preventDefault();
-          scrollWrapper.scrollLeft += e.deltaY * 0.8;
+          const maxScrollLeft = scrollWrapper.scrollWidth - scrollWrapper.clientWidth;
+          const currentScrollLeft = scrollWrapper.scrollLeft;
+
+          // Check if we are at boundaries
+          const isAtStart = currentScrollLeft <= 0;
+          const isAtEnd = currentScrollLeft >= maxScrollLeft - 2; // tolerating minor pixel rounding issues
+
+          const scrollingDown = e.deltaY > 0;
+          const scrollingUp = e.deltaY < 0;
+
+          // Only redirect vertical wheel scroll to horizontal if we have space to scroll horizontally
+          if ((scrollingDown && !isAtEnd) || (scrollingUp && !isAtStart)) {
+            e.preventDefault();
+            scrollWrapper.scrollLeft += e.deltaY * 0.85;
+          }
         }
       },
       { passive: false },

@@ -1,0 +1,1758 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Éternel - Thiệp Cưới Giấy Thủ Công Cao Cấp</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* ==========================================
+           DESIGN SYSTEM & VARIABLES (PREMIUM LIGHT THEME)
+           ========================================== */
+        :root {
+            --primary: #C5A880; /* Champagne Gold */
+            --primary-dark: #A3855E;
+            --primary-light: #F4EFE6;
+            --text-main: #2C2825; /* Warm Slate Dark */
+            --text-muted: #7E7873;
+            --bg-main: #FDFDFB; /* Warm Off-white */
+            --bg-secondary: #FAF6F0; /* Soft Ivory Cream */
+            --bg-card: #FFFFFF;
+            --accent: #5E7A68; /* Elegant Sage Green */
+            --accent-light: #EBF1ED;
+            --border-color: #EAE5DD;
+            --shadow-sm: 0 2px 8px rgba(44, 40, 37, 0.04);
+            --shadow-md: 0 10px 30px rgba(44, 40, 37, 0.06);
+            --shadow-lg: 0 20px 40px rgba(44, 40, 37, 0.1);
+            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            --font-serif: 'Playfair Display', Georgia, serif;
+            --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+
+        /* Basic Reset */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        li {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-main);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #E0D9CE;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 28px;
+            font-family: var(--font-sans);
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            border-radius: 30px;
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition: var(--transition);
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background-color: var(--text-main);
+            color: #FFFFFF;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border-color: var(--primary);
+            color: var(--text-main);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary-light);
+            border-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        /* ==========================================
+           HEADER (STICKY GLASSMORPHISM)
+           ========================================== */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 8%;
+            background-color: rgba(253, 253, 251, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(234, 229, 221, 0.4);
+            transition: var(--transition);
+        }
+
+        header.scrolled {
+            height: 70px;
+            box-shadow: var(--shadow-sm);
+            background-color: rgba(253, 253, 251, 0.95);
+        }
+
+        .logo {
+            font-family: var(--font-serif);
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            color: var(--primary);
+            font-size: 20px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .nav-links a {
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--text-main);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a.active {
+            color: var(--text-main);
+        }
+
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .header-action .btn {
+            padding: 10px 22px;
+            font-size: 13px;
+        }
+
+        /* Mobile Menu Toggle */
+        .menu-toggle {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--text-main);
+        }
+
+        /* ==========================================
+           HERO BANNER
+           ========================================== */
+        .hero {
+            min-height: 95vh;
+            padding-top: 80px;
+            background: linear-gradient(135deg, #FDFDFB 0%, #FAF6F0 100%);
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(197, 168, 128, 0.08) 0%, rgba(253, 253, 251, 0) 70%);
+            top: -10%;
+            right: -10%;
+            border-radius: 50%;
+            z-index: 0;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(94, 122, 104, 0.05) 0%, rgba(253, 253, 251, 0) 70%);
+            bottom: -10%;
+            left: -10%;
+            border-radius: 50%;
+            z-index: 0;
+        }
+
+        .hero-container {
+            width: 84%;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            align-items: center;
+            gap: 60px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-content {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--accent);
+            margin-bottom: 25px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .hero-content h1 {
+            font-family: var(--font-serif);
+            font-size: 56px;
+            line-height: 1.15;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 25px;
+        }
+
+        .hero-content h1 span {
+            display: block;
+            font-style: italic;
+            font-weight: 400;
+            color: var(--primary-dark);
+            margin-top: 5px;
+        }
+
+        .hero-content p {
+            font-size: 16px;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+            max-width: 580px;
+            line-height: 1.8;
+        }
+
+        .hero-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .hero-image-wrapper {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            opacity: 0;
+            transform: scale(0.95);
+            animation: fadeInScale 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+        }
+
+        .hero-image-box {
+            position: relative;
+            width: 100%;
+            max-width: 440px;
+            aspect-ratio: 4/5;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+        }
+
+        .hero-image-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 8s ease;
+        }
+
+        .hero-image-box:hover img {
+            transform: scale(1.05);
+        }
+
+        .hero-decor-badge {
+            position: absolute;
+            background-color: var(--bg-card);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            bottom: 30px;
+            left: -40px;
+            z-index: 5;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .hero-decor-badge span:first-child {
+            font-family: var(--font-serif);
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .hero-decor-badge span:last-child {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--primary-dark);
+            font-weight: 600;
+        }
+
+        /* ==========================================
+           PRODUCT GALLERY
+           ========================================== */
+        .products {
+            padding: 120px 8%;
+            background-color: var(--bg-main);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-subtitle {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.25em;
+            color: var(--primary-dark);
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .section-title {
+            font-family: var(--font-serif);
+            font-size: 38px;
+            font-weight: 700;
+            color: var(--text-main);
+            position: relative;
+            display: inline-block;
+            padding-bottom: 15px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 1px;
+            background-color: var(--primary);
+        }
+
+        /* Category Filter */
+        .filter-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background-color: transparent;
+            border: 1px solid var(--border-color);
+            padding: 10px 24px;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+            color: var(--text-muted);
+        }
+
+        .filter-btn:hover {
+            color: var(--text-main);
+            border-color: var(--text-main);
+        }
+
+        .filter-btn.active {
+            background-color: var(--text-main);
+            border-color: var(--text-main);
+            color: #FFFFFF;
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 40px;
+        }
+
+        .product-card {
+            background-color: var(--bg-card);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary);
+        }
+
+        .product-image-container {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 1/1;
+            overflow: hidden;
+            background-color: var(--bg-secondary);
+        }
+
+        .product-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .product-card:hover .product-image-container img {
+            transform: scale(1.06);
+        }
+
+        /* Overlay */
+        .product-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(44, 40, 37, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .product-card:hover .product-overlay {
+            opacity: 1;
+        }
+
+        .overlay-icon {
+            width: 54px;
+            height: 54px;
+            background-color: #FFFFFF;
+            color: var(--text-main);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            transform: scale(0.85);
+            transition: var(--transition);
+            box-shadow: var(--shadow-md);
+        }
+
+        .product-card:hover .overlay-icon {
+            transform: scale(1);
+        }
+
+        .overlay-icon:hover {
+            background-color: var(--primary);
+            color: #FFFFFF;
+        }
+
+        /* Card Content */
+        .product-info {
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            flex-grow: 1;
+        }
+
+        .product-category {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--primary-dark);
+        }
+
+        .product-title {
+            font-family: var(--font-serif);
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .product-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* ==========================================
+           CRAFTING PROCESS SECTION
+           ========================================== */
+        .process {
+            padding: 120px 8%;
+            background-color: var(--bg-secondary);
+            position: relative;
+        }
+
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .process-step {
+            background-color: var(--bg-card);
+            padding: 40px 30px;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .process-step:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary);
+        }
+
+        .step-num {
+            font-family: var(--font-serif);
+            font-size: 52px;
+            font-weight: 700;
+            line-height: 1;
+            color: rgba(197, 168, 128, 0.18);
+            position: absolute;
+            top: 25px;
+            right: 25px;
+        }
+
+        .step-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 14px;
+            background-color: var(--primary-light);
+            color: var(--primary-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            margin-bottom: 25px;
+        }
+
+        .process-step:hover .step-icon {
+            background-color: var(--primary);
+            color: #FFFFFF;
+            transform: rotateY(180deg);
+            transition: transform 0.6s;
+        }
+
+        .step-title {
+            font-family: var(--font-serif);
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 12px;
+        }
+
+        .step-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* ==========================================
+           CONTACT & BOOKING SECTION
+           ========================================== */
+        .contact {
+            padding: 120px 8%;
+            background-color: var(--bg-main);
+        }
+
+        .contact-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 0.9fr 1.1fr;
+            background-color: var(--bg-secondary);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-color);
+        }
+
+        .contact-info-panel {
+            background: linear-gradient(135deg, #2C2825 0%, #1A1715 100%);
+            color: #FFFFFF;
+            padding: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .contact-info-panel h2 {
+            font-family: var(--font-serif);
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .contact-info-panel p {
+            color: #BCB4AE;
+            font-size: 14px;
+            line-height: 1.7;
+            margin-bottom: 40px;
+        }
+
+        .contact-details {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .contact-item i {
+            color: var(--primary);
+            font-size: 18px;
+            margin-top: 4px;
+        }
+
+        .contact-item div h4 {
+            font-size: 14px;
+            font-weight: 600;
+            color: #FFFFFF;
+            margin-bottom: 4px;
+        }
+
+        .contact-item div p {
+            color: #BCB4AE;
+            font-size: 13px;
+            margin-bottom: 0;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 50px;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #FFFFFF;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .social-link:hover {
+            background-color: var(--primary);
+            border-color: var(--primary);
+            color: #FFFFFF;
+            transform: translateY(-3px);
+        }
+
+        .contact-form-panel {
+            padding: 60px;
+            background-color: var(--bg-card);
+        }
+
+        .contact-form-panel h3 {
+            font-family: var(--font-serif);
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 18px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-family: var(--font-sans);
+            font-size: 14px;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            transition: var(--transition);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            background-color: #FFFFFF;
+            box-shadow: 0 0 0 3px rgba(197, 168, 128, 0.15);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .contact-form-panel .btn {
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        /* ==========================================
+           MODAL IMAGE LIGHTBOX (PREMIUM ZOOM & DETAILS)
+           ========================================== */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(28, 26, 24, 0.96);
+            backdrop-filter: blur(15px);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .modal.show {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-container {
+            width: 90%;
+            max-width: 1050px;
+            background-color: var(--bg-main);
+            border-radius: 20px;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            transform: scale(0.92);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .modal.show .modal-container {
+            transform: scale(1);
+        }
+
+        .modal-close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-main);
+            font-size: 16px;
+            cursor: pointer;
+            z-index: 10;
+            transition: var(--transition);
+            border: none;
+            box-shadow: var(--shadow-md);
+        }
+
+        .modal-close-btn:hover {
+            background-color: var(--text-main);
+            color: #FFFFFF;
+            transform: rotate(90deg);
+        }
+
+        .modal-image-panel {
+            position: relative;
+            background-color: #0F0E0D;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            aspect-ratio: 1.1/1;
+        }
+
+        .modal-image-panel img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        /* Zoom functionality on hover */
+        .modal-image-panel:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Slide Buttons */
+        .modal-nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-55%);
+            width: 46px;
+            height: 46px;
+            background-color: rgba(255, 255, 255, 0.85);
+            color: var(--text-main);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            transition: var(--transition);
+            z-index: 5;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .modal-nav-btn:hover {
+            background-color: var(--primary);
+            color: #FFFFFF;
+        }
+
+        .modal-prev {
+            left: 20px;
+        }
+
+        .modal-next {
+            right: 20px;
+        }
+
+        .modal-info-panel {
+            padding: 50px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background-color: var(--bg-card);
+            border-left: 1px solid var(--border-color);
+        }
+
+        .modal-product-header {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .modal-product-tag {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--primary-dark);
+        }
+
+        .modal-product-title {
+            font-family: var(--font-serif);
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-main);
+            line-height: 1.25;
+        }
+
+        .modal-product-desc {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-top: 15px;
+        }
+
+        .modal-product-features {
+            margin-top: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            color: var(--text-main);
+        }
+
+        .feature-item i {
+            color: var(--accent);
+            font-size: 14px;
+        }
+
+        .modal-enquiry-box {
+            margin-top: 35px;
+            padding-top: 25px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .modal-enquiry-box h4 {
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-main);
+            margin-bottom: 15px;
+        }
+
+        .modal-btn {
+            width: 100%;
+        }
+
+        /* ==========================================
+           FOOTER
+           ========================================== */
+        footer {
+            background-color: #1A1715;
+            color: #928B86;
+            padding: 80px 8% 40px 8%;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1.5fr;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .footer-col h3 {
+            color: #FFFFFF;
+            font-family: var(--font-serif);
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 25px;
+        }
+
+        .footer-col p {
+            font-size: 13px;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .footer-col ul {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .footer-col ul a {
+            font-size: 13px;
+        }
+
+        .footer-col ul a:hover {
+            color: #FFFFFF;
+            padding-left: 4px;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 10px;
+        }
+
+        .newsletter-form input {
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 10px 15px;
+            border-radius: 20px;
+            font-size: 13px;
+            color: #FFFFFF;
+            width: 100%;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .newsletter-form input:focus {
+            border-color: var(--primary);
+            background-color: rgba(255, 255, 255, 0.08);
+        }
+
+        .newsletter-form .btn {
+            padding: 10px 20px;
+            font-size: 12px;
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 40px;
+            font-size: 12px;
+        }
+
+        /* ==========================================
+           RESPONSIVE DESIGN
+           ========================================== */
+        @media (max-width: 1200px) {
+            .hero-content h1 {
+                font-size: 46px;
+            }
+            .process-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 991px) {
+            header {
+                padding: 0 5%;
+            }
+            .nav-links {
+                display: none; /* In real, implement simple mobile drawer */
+            }
+            .menu-toggle {
+                display: block;
+            }
+            .hero-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 40px;
+            }
+            .hero-content {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            .hero-content p {
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .hero-decor-badge {
+                left: 10px;
+                bottom: 10px;
+            }
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .modal-container {
+                grid-template-columns: 1fr;
+                max-height: 90vh;
+                overflow-y: auto;
+            }
+            .modal-info-panel {
+                padding: 30px;
+                border-left: none;
+                border-top: 1px solid var(--border-color);
+            }
+            .modal-image-panel {
+                aspect-ratio: 1.5/1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 36px;
+            }
+            .section-title {
+                font-size: 30px;
+            }
+            .contact-info-panel {
+                padding: 40px 30px;
+            }
+            .contact-form-panel {
+                padding: 40px 30px;
+            }
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+            .footer-bottom {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+        }
+
+        /* ==========================================
+           ANIMATIONS
+           ========================================== */
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInScale {
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-8px);
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ==========================================
+       HEADER / NAVIGATION
+       ========================================== -->
+    <header id="header">
+        <a href="#" class="logo">
+            <i class="fa-solid fa-leaf"></i> ÉTERNEL
+        </a>
+        <nav class="nav-links">
+            <a href="#home" class="active">Trang chủ</a>
+            <a href="#collection">Bộ sưu tập</a>
+            <a href="#process">Quy trình</a>
+            <a href="#contact">Liên hệ</a>
+        </nav>
+        <div class="header-action">
+            <a href="#contact" class="btn btn-primary">Nhận tư vấn</a>
+        </div>
+        <div class="menu-toggle">
+            <i class="fa-solid fa-bars-staggered"></i>
+        </div>
+    </header>
+
+    <!-- ==========================================
+       HERO BANNER
+       ========================================== -->
+    <section class="hero" id="home">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <i class="fa-regular fa-star"></i> Mẫu thiệp độc bản 2026
+                </div>
+                <h1>Nét Giao Thoa Giữa <span>Giấy & Tình Yêu</span></h1>
+                <p>Éternel chế tác những bộ thiệp cưới thủ công cao cấp từ chất liệu giấy mỹ thuật nhập khẩu Thụy Sĩ, kết hợp kỹ thuật ép kim nhũ vàng và dập nổi hoa văn tinh tế để ghi lại dấu ấn thiêng liêng cho ngày chung đôi của bạn.</p>
+                <div class="hero-actions">
+                    <a href="#collection" class="btn btn-primary">Bộ sưu tập</a>
+                    <a href="#process" class="btn btn-outline">Xem quy trình</a>
+                </div>
+            </div>
+            <div class="hero-image-wrapper">
+                <div class="hero-image-box">
+                    <img src="./images/card_classic.png" alt="Premium Wedding Invitation Banner">
+                </div>
+                <div class="hero-decor-badge">
+                    <span>100% Handmade</span>
+                    <span>Crafted with love</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+       PRODUCT GALLERY
+       ========================================== -->
+    <section class="products" id="collection">
+        <div class="section-header">
+            <span class="section-subtitle">Chế tác thủ công</span>
+            <h2 class="section-title">Bộ Sưu Tập Cao Cấp</h2>
+        </div>
+
+        <!-- Filter Buttons -->
+        <div class="filter-container">
+            <button class="filter-btn active" data-filter="all">Tất cả</button>
+            <button class="filter-btn" data-filter="classic">Cổ điển</button>
+            <button class="filter-btn" data-filter="minimalist">Tối giản</button>
+            <button class="filter-btn" data-filter="botanical">Hoa cỏ</button>
+            <button class="filter-btn" data-filter="contemporary">Hiện đại</button>
+        </div>
+
+        <!-- Product Grid -->
+        <div class="products-grid" id="products-grid">
+            <!-- Card 1 -->
+            <div class="product-card" data-category="classic" onclick="openLightbox(0)">
+                <div class="product-image-container">
+                    <img src="./images/card_classic.png" alt="Mẫu thiệp L'Amour Classic">
+                    <div class="product-overlay">
+                        <span class="overlay-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <span class="product-category">Cổ Điển / Sang Trọng</span>
+                    <h3 class="product-title">L'Amour Classic</h3>
+                    <p class="product-desc">Thiết kế hoàng gia trên giấy gân Thụy Sĩ sang trọng, dập kim nhũ vàng 24k nổi sắc sảo.</p>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="product-card" data-category="minimalist" onclick="openLightbox(1)">
+                <div class="product-image-container">
+                    <img src="./images/card_minimalist.png" alt="Mẫu thiệp Golden Minimalist">
+                    <div class="product-overlay">
+                        <span class="overlay-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <span class="product-category">Tối Giản / Tinh Tế</span>
+                    <h3 class="product-title">Golden Minimalist</h3>
+                    <p class="product-desc">Đường nét mảnh mai, font chữ Serif thanh lịch trên nền giấy mỹ thuật kem sần cao cấp.</p>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="product-card" data-category="botanical" onclick="openLightbox(2)">
+                <div class="product-image-container">
+                    <img src="./images/card_botanical.png" alt="Mẫu thiệp Botanical Dream">
+                    <div class="product-overlay">
+                        <span class="overlay-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <span class="product-category">Hoa Cỏ / Tự Nhiên</span>
+                    <h3 class="product-title">Botanical Dream</h3>
+                    <p class="product-desc">Họa tiết màu nước Eucalyptus mềm mại kết hợp cùng dây cói đay sần và dấu sáp xanh sage.</p>
+                </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="product-card" data-category="contemporary" onclick="openLightbox(3)">
+                <div class="product-image-container">
+                    <img src="./images/card_contemporary.png" alt="Mẫu thiệp Modern Velvet">
+                    <div class="product-overlay">
+                        <span class="overlay-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <span class="product-category">Hiện Đại / Độc Đáo</span>
+                    <h3 class="product-title">Modern Velvet</h3>
+                    <p class="product-desc">Màu xanh ngọc lục bảo sâu thẳm kết hợp đường kẻ hình học ép kim sang trọng thời thượng.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+       CRAFTING PROCESS SECTION
+       ========================================== -->
+    <section class="process" id="process">
+        <div class="section-header">
+            <span class="section-subtitle">Chất lượng hoàn mỹ</span>
+            <h2 class="section-title">Quy Trình Chế Tác</h2>
+        </div>
+
+        <div class="process-grid">
+            <!-- Step 1 -->
+            <div class="process-step">
+                <span class="step-num">01</span>
+                <div class="step-icon"><i class="fa-solid fa-pen-nib"></i></div>
+                <h3 class="step-title">Tư Vấn Thiết Kế</h3>
+                <p class="step-desc">Lắng nghe câu chuyện tình yêu của bạn để phác thảo bố cục và lựa chọn phong cách typography cá nhân hóa phù hợp.</p>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="process-step">
+                <span class="step-num">02</span>
+                <div class="step-icon"><i class="fa-solid fa-scroll"></i></div>
+                <h3 class="step-title">Chọn Chất Liệu</h3>
+                <p class="step-desc">Được trải nghiệm trực tiếp các chất liệu giấy mỹ thuật nhập khẩu Đức, Ý, Nhật Bản với độ dày và vân thớ đa dạng.</p>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="process-step">
+                <span class="step-num">03</span>
+                <div class="step-icon"><i class="fa-solid fa-fire-burner"></i></div>
+                <h3 class="step-title">In Ấn & Ép Kim</h3>
+                <p class="step-desc">Sử dụng phương pháp in ép nhũ nóng ở nhiệt độ cao để nhũ bám chặt, lấp lánh và dập nổi chìm sâu 3D trên bề mặt giấy.</p>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="process-step">
+                <span class="step-num">04</span>
+                <div class="step-icon"><i class="fa-solid fa-hands-holding"></i></div>
+                <h3 class="step-title">Gia Công Thủ Công</h3>
+                <p class="step-desc">Từng con dấu sáp, sợi dây cói buộc nơ hay đường xé mép giấy đều được các nghệ nhân tự tay chăm chút tỉ mỉ.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+       CONTACT & BOOKING SECTION
+       ========================================== -->
+    <section class="contact" id="contact">
+        <div class="contact-container">
+            <!-- Info Panel -->
+            <div class="contact-info-panel">
+                <div>
+                    <h2>Liên Hệ Với Éternel</h2>
+                    <p>Hãy gửi thông tin ngày vui của bạn để nhận mẫu thử giấy miễn phí và tư vấn gói thiết kế thiệp cưới độc bản từ các nghệ nhân.</p>
+                </div>
+                
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <div>
+                            <h4>Studio Chế Tác</h4>
+                            <p>Số 45, Đường Lê Lợi, Quận 1, TP. Hồ Chí Minh</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <i class="fa-solid fa-phone"></i>
+                        <div>
+                            <h4>Hotline Tư Vấn</h4>
+                            <p>090 123 4567 (8:00 - 21:00)</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <i class="fa-solid fa-envelope"></i>
+                        <div>
+                            <h4>Email</h4>
+                            <p>hello@eternelinvitations.vn</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" class="social-link"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fa-brands fa-pinterest-p"></i></a>
+                </div>
+            </div>
+
+            <!-- Form Panel -->
+            <div class="contact-form-panel">
+                <h3>Đăng Ký Nhận Tư Vấn</h3>
+                <form id="enquiry-form" onsubmit="handleFormSubmit(event)">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="fullname">Họ tên của bạn</label>
+                            <input type="text" id="fullname" placeholder="Nguyễn Văn A" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Số điện thoại</label>
+                            <input type="tel" id="phone" placeholder="0901234567" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="wedding-date">Ngày cưới dự kiến</label>
+                            <input type="date" id="wedding-date">
+                        </div>
+                        <div class="form-group">
+                            <label for="style-pref">Phong cách yêu thích</label>
+                            <select id="style-pref">
+                                <option value="classic">Cổ điển & Sang trọng</option>
+                                <option value="minimalist">Tối giản & Hiện đại</option>
+                                <option value="botanical">Hoa cỏ & Mộc mạc</option>
+                                <option value="contemporary">Độc đáo & Phá cách</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Lời nhắn đến Éternel</label>
+                        <textarea id="message" placeholder="Ví dụ: Tôi muốn tư vấn thiết kế thiệp có dán hoa khô và đóng dấu sáp..."></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" id="submit-btn">
+                        Gửi Yêu Cầu Đăng Ký <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+       MODAL IMAGE LIGHTBOX (PREMIUM ZOOM & DETAILS)
+       ========================================== -->
+    <div class="modal" id="photo-modal" onclick="closeLightboxOnOverlay(event)">
+        <div class="modal-container">
+            <button class="modal-close-btn" onclick="closeLightbox()"><i class="fa-solid fa-xmark"></i></button>
+            
+            <!-- Left Side: Image Panel with Zoom and Arrows -->
+            <div class="modal-image-panel">
+                <button class="modal-nav-btn modal-prev" onclick="changeSlide(-1)"><i class="fa-solid fa-chevron-left"></i></button>
+                <img src="" id="modal-img" alt="Zoomed Wedding Invitation">
+                <button class="modal-nav-btn modal-next" onclick="changeSlide(1)"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+            
+            <!-- Right Side: Product details and booking -->
+            <div class="modal-info-panel">
+                <div class="modal-product-header">
+                    <span class="modal-product-tag" id="modal-tag">Bộ Sưu Tập</span>
+                    <h3 class="modal-product-title" id="modal-title">Tên Mẫu Thiệp</h3>
+                    <p class="modal-product-desc" id="modal-desc">Mô tả sản phẩm thiệp cưới cao cấp tinh tế chế tác tỉ mỉ.</p>
+                    
+                    <div class="modal-product-features">
+                        <div class="feature-item">
+                            <i class="fa-regular fa-circle-check"></i>
+                            <span>Sản phẩm chế tác thủ công chất lượng cao</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fa-regular fa-circle-check"></i>
+                            <span>Giấy mỹ thuật nhập khẩu Thụy Sĩ/Đức đạt chuẩn</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fa-regular fa-circle-check"></i>
+                            <span>Kỹ thuật in dập nổi ép kim độc quyền sắc nét</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-enquiry-box">
+                    <h4>Đăng ký tư vấn mẫu này</h4>
+                    <a href="#contact" class="btn btn-primary modal-btn" onclick="enquireModel()">
+                        Đăng Ký Tư Vấn Ngay <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================
+       FOOTER
+       ========================================== -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h3 style="letter-spacing: 0.1em; color: #FFFFFF;"><i class="fa-solid fa-leaf" style="color: var(--primary);"></i> ÉTERNEL</h3>
+                <p>Nơi chế tác những tấm thiệp cưới giấy thủ công đong đầy tình cảm và nghệ thuật của những nghệ nhân tâm huyết nhất Sài Gòn.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Bộ Sưu Tập</h3>
+                <ul>
+                    <li><a href="#collection">L'Amour Classic</a></li>
+                    <li><a href="#collection">Golden Minimalist</a></li>
+                    <li><a href="#collection">Botanical Dream</a></li>
+                    <li><a href="#collection">Modern Velvet</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Liên Kết</h3>
+                <ul>
+                    <li><a href="#home">Trang chủ</a></li>
+                    <li><a href="#collection">Thiệp cưới giấy</a></li>
+                    <li><a href="#process">Quy trình</a></li>
+                    <li><a href="#contact">Đăng ký tư vấn</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Bản Tin</h3>
+                <p>Nhận thông tin cập nhật các phong cách thiệp cưới mới nhất năm 2026.</p>
+                <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Cảm ơn bạn đã đăng ký nhận bản tin!');">
+                    <input type="email" placeholder="Email của bạn" required>
+                    <button type="submit" class="btn btn-primary"><i class="fa-regular fa-paper-plane"></i></button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Éternel Invitations. All rights reserved. Designed for elegance.</p>
+            <p>Điều khoản dịch vụ | Chính sách bảo mật</p>
+        </div>
+    </footer>
+
+    <!-- ==========================================
+       JAVASCRIPT FOR FILTER & MODAL LIGHTBOX
+       ========================================== -->
+    <script>
+        // --- 1. Sticky Navigation ---
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // --- 2. Category Filter Logic ---
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const productCards = document.querySelectorAll('.product-card');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Change active state of buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+
+                // Filter cards
+                const filterValue = button.getAttribute('data-filter');
+                productCards.forEach(card => {
+                    if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
+                        card.style.display = 'flex';
+                        // Subtle entry animation
+                        card.style.opacity = '0';
+                        card.style.transform = 'translateY(15px)';
+                        setTimeout(() => {
+                            card.style.opacity = '1';
+                            card.style.transform = 'translateY(0)';
+                            card.style.transition = 'var(--transition)';
+                        }, 50);
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // --- 3. Lightbox Modal Gallery Data & Logic ---
+        const productsData = [
+            {
+                tag: "Cổ Điển / Sang Trọng",
+                title: "L'Amour Classic",
+                desc: "Bộ thiệp L'Amour Classic mang hơi thở hoàng gia châu Âu thế kỷ 19. Thiệp được chế tác trên giấy mỹ thuật nén gân Thụy Sĩ dày dặn, các đường viền và phông chữ Serif được in ép kim nhũ vàng nhạt nguyên chất, tạo chiều sâu thị giác sang trọng tuyệt đối.",
+                img: "./images/card_classic.png",
+                style: "classic"
+            },
+            {
+                tag: "Tối Giản / Tinh Tế",
+                title: "Golden Minimalist",
+                desc: "Dành cho những cặp đôi yêu thích vẻ đẹp nghệ thuật đương đại, Golden Minimalist tập trung hoàn toàn vào sự cân đối của các khoảng trắng và đường nét mảnh mai. Kỹ thuật dập chìm không màu tạo họa tiết chìm sâu bên dưới, tương phản trang nhã với tên cô dâu chú rể ép kim thanh mảnh.",
+                img: "./images/card_minimalist.png",
+                style: "minimalist"
+            },
+            {
+                tag: "Hoa Cỏ / Tự Nhiên",
+                title: "Botanical Dream",
+                desc: "Sự kết hợp ngọt ngào giữa tranh màu nước và chất liệu thô mộc. Thiệp in trên giấy cotton xé mép thủ công (deckle-edge), đi kèm phong bì màu xanh sage sang trọng, thắt dây cói tự nhiên và đóng dấu sáp ong ép hoa oải hương/bạch đàn thật.",
+                img: "./images/card_botanical.png",
+                style: "botanical"
+            },
+            {
+                tag: "Hiện Đại / Độc Đáo",
+                title: "Modern Velvet",
+                desc: "Bộ thiệp đi đầu xu hướng phối màu 2026 với tone xanh ngọc lục bảo quý phái. Toàn bộ thông tin được thiết kế đối xứng theo khối hình học Art Deco thời thượng, thúc ép nhũ kim cương vàng óng ánh trên chất liệu giấy siêu mịn đem lại cảm giác chạm nhung cao cấp.",
+                img: "./images/card_contemporary.png",
+                style: "contemporary"
+            }
+        ];
+
+        let currentProductIndex = 0;
+        const modal = document.getElementById('photo-modal');
+        const modalImg = document.getElementById('modal-img');
+        const modalTag = document.getElementById('modal-tag');
+        const modalTitle = document.getElementById('modal-title');
+        const modalDesc = document.getElementById('modal-desc');
+
+        function openLightbox(index) {
+            currentProductIndex = index;
+            updateModalContent();
+            modal.classList.add('show');
+            document.body.style.overflow = 'hidden'; // Lock background scrolling
+        }
+
+        function closeLightbox() {
+            modal.classList.remove('show');
+            document.body.style.overflow = 'auto'; // Unlock scroll
+        }
+
+        function closeLightboxOnOverlay(event) {
+            // Close modal only if clicked outside the container
+            if (event.target === modal) {
+                closeLightbox();
+            }
+        }
+
+        function changeSlide(direction) {
+            currentProductIndex += direction;
+            if (currentProductIndex >= productsData.length) {
+                currentProductIndex = 0;
+            } else if (currentProductIndex < 0) {
+                currentProductIndex = productsData.length - 1;
+            }
+            
+            // Fade effect during slide change
+            modalImg.style.opacity = '0.3';
+            setTimeout(() => {
+                updateModalContent();
+                modalImg.style.opacity = '1';
+            }, 150);
+        }
+
+        function updateModalContent() {
+            const data = productsData[currentProductIndex];
+            modalImg.src = data.img;
+            modalTag.textContent = data.tag;
+            modalTitle.textContent = data.title;
+            modalDesc.textContent = data.desc;
+        }
+
+        function enquireModel() {
+            const data = productsData[currentProductIndex];
+            const selectElement = document.getElementById('style-pref');
+            selectElement.value = data.style;
+            
+            // Smoothly close modal and jump to form
+            closeLightbox();
+            setTimeout(() => {
+                document.getElementById('fullname').focus();
+            }, 600);
+        }
+
+        // Keyboard navigation for modal
+        window.addEventListener('keydown', function(event) {
+            if (modal.classList.contains('show')) {
+                if (event.key === 'Escape') {
+                    closeLightbox();
+                } else if (event.key === 'ArrowRight') {
+                    changeSlide(1);
+                } else if (event.key === 'ArrowLeft') {
+                    changeSlide(-1);
+                }
+            }
+        });
+
+        // --- 4. Contact Form Handler ---
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            const submitBtn = document.getElementById('submit-btn');
+            const fullname = document.getElementById('fullname').value;
+            
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = 'Đang gửi thông tin... <i class="fa-solid fa-spinner fa-spin"></i>';
+            
+            setTimeout(() => {
+                alert(`Cảm ơn bạn, ${fullname}! Éternel đã nhận được yêu cầu đăng ký tư vấn mẫu thiệp. Chúng tôi sẽ liên hệ với bạn trong vòng 2 giờ làm việc.`);
+                document.getElementById('enquiry-form').reset();
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = 'Gửi Yêu Cầu Đăng Ký <i class="fa-solid fa-paper-plane"></i>';
+            }, 1200);
+        }
+    </script>
+</body>
+</html>

@@ -3,9 +3,15 @@
   // --- CẤU HÌNH SƠ ĐỒ LỚP HỌC ---
   window.totalSeats = 48; // Tổng số lượng ô ngồi trong sơ đồ
   window.seatsPerRow = 8; // Số lượng ghế trên 1 hàng (Số cột hiển thị: 8, 6,...)
+  window.SEATING_SHEET_ID = "1WIpB0DzMY-UPHzfGbjgzaN_Gd7wofOtem6gnkl2Zx6Q"; // Google Sheets ID
+  window.SEATING_SHEET_GID = "909964321"; // Tab GID chứa thông tin học sinh
 
   const defaultAvatarSvg = `data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2355b079'><path d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/></svg>`;
 
+  // Khởi tạo danh sách học sinh trống ban đầu (Dữ liệu sẽ nạp động từ Google Sheets)
+  window.seatingStudents = [];
+
+  /*
   window.seatingStudents = [
     {
       name: "Minh Quân",
@@ -332,6 +338,10 @@
       crush: "Ẩm thực",
     },
   ];
+  */
+
+  let isFetching = false;
+  let isFetched = false;
 
   // KHỞI TẠO SƠ ĐỒ LỚP HỌC
   window.initSeatingChart = function () {
@@ -342,92 +352,191 @@
     // Thiết lập số cột động
     gridContainer.style.gridTemplateColumns = `repeat(${window.seatsPerRow}, 1fr)`;
 
-    const studentMap = {};
-    window.seatingStudents.forEach((student) => {
-      if (student.seatIndex) {
-        studentMap[student.seatIndex] = student;
-      }
-    });
+    // Nếu có cấu hình Google Sheet và chưa fetch dữ liệu
+    if (window.SEATING_SHEET_ID && !isFetched && !isFetching) {
+      isFetching = true;
+      const tsvUrl = `https://docs.google.com/spreadsheets/d/${window.SEATING_SHEET_ID}/export?format=tsv&gid=${window.SEATING_SHEET_GID || "0"}`;
 
-    gridContainer.innerHTML = "";
-    const seatAwards =
-      typeof window.getSeatAwards === "function" ? window.getSeatAwards() : {};
+      // Hiển thị trạng thái loading trong khi tải dữ liệu
+      gridContainer.innerHTML = `
+        <div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #7E7873; font-weight: 500;">
+          <div style="font-size: 24px; margin-bottom: 10px; animation: spin 1.5s linear infinite;">⏳</div>
+          Đang tải danh sách sơ đồ lớp từ Google Sheets...
+        </div>
+      `;
 
-    for (let seatNum = 1; seatNum <= window.totalSeats; seatNum++) {
-      const seat = document.createElement("div");
-      const student = studentMap[seatNum];
+      fetch(tsvUrl)
+        .then((response) => {
+          if (!response.ok)
+            throw new Error("Không thể fetch dữ liệu Google Sheets");
+          return response.text();
+        })
+        .then((tsvText) => {
+          const lines = tsvText.split(/\r?\n/);
+          if (lines.length > 0) {
+            const headers = lines[0].split("\t").map((h) => h.trim());
 
-      if (student) {
-        seat.className = "seat-item";
+            const nameIdx = headers.indexOf("Tên");
+            const seatIdx = headers.indexOf("Số thứ tự ngồi");
+            const quoteIdx = headers.indexOf("Câu nói đạo lý");
+            const hobbyIdx = headers.indexOf("Sở thích");
+            const dreamIdx = headers.indexOf("Ước mơ");
+            const crushIdx = headers.indexOf("Crush");
+            const avatarIdx = headers.indexOf("Avatar");
 
-        // Thiết lập tooltip (Tên + Danh hiệu nếu có)
-        let tooltipText = student.name;
-        if (seatAwards[student.name]) {
-          tooltipText += ` (${seatAwards[student.name].emoji} ${seatAwards[student.name].category.split(" ").slice(1).join(" ")})`;
+            // Parse data nếu các cột tiêu đề hợp lệ
+            if (nameIdx !== -1 && seatIdx !== -1) {
+              // Hàm tự động chuyển đổi link chia sẻ Google Drive sang link trực tiếp dùng được trong thẻ img
+              const convertDriveUrl = (url) => {
+                if (!url) return "";
+                const driveRegex =
+                  /(?:drive\.google\.com\/(?:file\/d\/|open\?id=)|docs\.google\.com\/uc\?id=)([a-zA-Z0-9_-]+)/;
+                const match = url.match(driveRegex);
+                if (match && match[1]) {
+                  return `https://lh3.googleusercontent.com/d/${match[1]}`;
+                }
+                return url;
+              };
+
+              const parsedStudents = [];
+              for (let i = 1; i < lines.length; i++) {
+                const cells = lines[i].split("\t");
+                if (
+                  cells.length <= Math.max(nameIdx, seatIdx) ||
+                  !cells[nameIdx]?.trim()
+                )
+                  continue;
+
+                parsedStudents.push({
+                  name: cells[nameIdx].trim(),
+                  seatIndex: parseInt(cells[seatIdx]) || null,
+                  quote: cells[quoteIdx] ? cells[quoteIdx].trim() : "",
+                  hobby: cells[hobbyIdx] ? cells[hobbyIdx].trim() : "",
+                  dream: cells[dreamIdx] ? cells[dreamIdx].trim() : "",
+                  crush: cells[crushIdx] ? cells[crushIdx].trim() : "",
+                  avatar: cells[avatarIdx]
+                    ? convertDriveUrl(cells[avatarIdx].trim())
+                    : "",
+                });
+              }
+
+              if (parsedStudents.length > 0) {
+                window.seatingStudents = parsedStudents;
+              }
+            }
+          }
+          isFetched = true;
+          isFetching = false;
+          renderSeats();
+
+          // Sau khi tải xong, cập nhật lại dropdown và leaderboard của Superlatives
+          if (typeof window.initSuperlatives === "function") {
+            window.initSuperlatives();
+          }
+        })
+        .catch((err) => {
+          console.warn(
+            "Lỗi đồng bộ sơ đồ lớp từ Google Sheets, dùng dữ liệu mặc định:",
+            err,
+          );
+          isFetched = true;
+          isFetching = false;
+          renderSeats();
+        });
+    } else {
+      renderSeats();
+    }
+
+    function renderSeats() {
+      const studentMap = {};
+      window.seatingStudents.forEach((student) => {
+        if (student.seatIndex) {
+          studentMap[student.seatIndex] = student;
         }
-        seat.setAttribute("data-tooltip", tooltipText);
+      });
 
-        const avatarUrl = student.avatar || defaultAvatarSvg;
-        seat.innerHTML = `<img src="${avatarUrl}" alt="${student.name}" loading="lazy" onerror="this.onerror=null;this.src='${defaultAvatarSvg}';">`;
+      gridContainer.innerHTML = "";
+      const seatAwards =
+        typeof window.getSeatAwards === "function"
+          ? window.getSeatAwards()
+          : {};
 
-        // Huy hiệu danh hiệu trên sơ đồ
-        if (seatAwards[student.name]) {
-          const badge = document.createElement("div");
-          badge.className = "award-badge";
-          badge.textContent = seatAwards[student.name].emoji;
-          seat.appendChild(badge);
+      for (let seatNum = 1; seatNum <= window.totalSeats; seatNum++) {
+        const seat = document.createElement("div");
+        const student = studentMap[seatNum];
 
-          // Highlight viền bàn học có danh hiệu
-          seat.style.borderColor = "rgb(197, 168, 128)";
-        }
+        if (student) {
+          seat.className = "seat-item";
 
-        // Sự kiện click xem chi tiết
-        seat.addEventListener("click", function () {
-          document
-            .querySelectorAll(".seat-item")
-            .forEach((s) => s.classList.remove("active-seat"));
-          seat.classList.add("active-seat");
-
-          let awardsHtml = "";
+          // Thiết lập tooltip (Tên + Danh hiệu nếu có)
+          let tooltipText = student.name;
           if (seatAwards[student.name]) {
-            awardsHtml = `
-                            <div class="profile-info-card" style="border-color: rgb(197, 168, 128); background: rgba(197, 168, 128, 0.15);">
-                                <span>🏆</span>
-                                <div><strong>Danh hiệu:</strong> ${seatAwards[student.name].category}</div>
-                            </div>
-                        `;
+            tooltipText += ` (${seatAwards[student.name].emoji} ${seatAwards[student.name].category.split(" ").slice(1).join(" ")})`;
+          }
+          seat.setAttribute("data-tooltip", tooltipText);
+
+          const avatarUrl = student.avatar || defaultAvatarSvg;
+          seat.innerHTML = `<img src="${avatarUrl}" alt="${student.name}" loading="lazy" onerror="this.onerror=null;this.src='${defaultAvatarSvg}';">`;
+
+          // Huy hiệu danh hiệu trên sơ đồ
+          if (seatAwards[student.name]) {
+            const badge = document.createElement("div");
+            badge.className = "award-badge";
+            badge.textContent = seatAwards[student.name].emoji;
+            seat.appendChild(badge);
+
+            // Highlight viền bàn học có danh hiệu
+            seat.style.borderColor = "rgb(197, 168, 128)";
           }
 
-          profilePanel.innerHTML = `
-                        <div class="profile-img-container">
-                            <img src="${avatarUrl}" alt="${student.name}" onerror="this.onerror=null;this.src='${defaultAvatarSvg}';">
-                        </div>
-                        <h3 class="profile-name">${student.name}</h3>
-                        <p class="profile-quote">"${student.quote}"</p>
-                        <div class="profile-info-list">
-                            ${awardsHtml}
-                            <div class="profile-info-card">
-                                <span>🎵</span>
-                                <div><strong>Sở thích:</strong> ${student.hobby}</div>
-                            </div>
-                            <div class="profile-info-card">
-                                <span>🚀</span>
-                                <div><strong>Ước mơ:</strong> ${student.dream}</div>
-                            </div>
-                            <div class="profile-info-card">
-                                <span>💌</span>
-                                <div><strong>Crush:</strong> ${student.crush}</div>
-                            </div>
-                        </div>
-                    `;
-        });
-      } else {
-        // Ô ngồi trống
-        seat.className = "seat-item empty-seat";
-        seat.innerHTML = `<span style="font-size: 10px; color: #999; font-weight: 500;">Trống</span>`;
-      }
+          // Sự kiện click xem chi tiết
+          seat.addEventListener("click", function () {
+            document
+              .querySelectorAll(".seat-item")
+              .forEach((s) => s.classList.remove("active-seat"));
+            seat.classList.add("active-seat");
 
-      gridContainer.appendChild(seat);
+            let awardsHtml = "";
+            if (seatAwards[student.name]) {
+              awardsHtml = `
+                              <div class="profile-info-card" style="border-color: rgb(197, 168, 128); background: rgba(197, 168, 128, 0.15);">
+                                  <span>🏆</span>
+                                  <div><strong>Danh hiệu:</strong> ${seatAwards[student.name].category}</div>
+                              </div>
+                          `;
+            }
+
+            profilePanel.innerHTML = `
+                          <div class="profile-img-container">
+                              <img src="${avatarUrl}" alt="${student.name}" onerror="this.onerror=null;this.src='${defaultAvatarSvg}';">
+                          </div>
+                          <h3 class="profile-name">${student.name}</h3>
+                          <p class="profile-quote">"${student.quote}"</p>
+                          <div class="profile-info-list">
+                              ${awardsHtml}
+                              <div class="profile-info-card">
+                                  <span>🎵</span>
+                                  <div><strong>Sở thích:</strong> ${student.hobby}</div>
+                              </div>
+                              <div class="profile-info-card">
+                                  <span>🚀</span>
+                                  <div><strong>Ước mơ:</strong> ${student.dream}</div>
+                              </div>
+                              <div class="profile-info-card">
+                                  <span>💌</span>
+                                  <div><strong>Crush:</strong> ${student.crush}</div>
+                              </div>
+                          </div>
+                      `;
+          });
+        } else {
+          // Ô ngồi trống
+          seat.className = "seat-item empty-seat";
+          seat.innerHTML = `<span style="font-size: 10px; color: #999; font-weight: 500;">Trống</span>`;
+        }
+
+        gridContainer.appendChild(seat);
+      }
     }
   };
 })();

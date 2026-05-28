@@ -121,7 +121,7 @@ function previewSignature(sizePercent) {
     dragMessage.style.padding = "5px 10px";
     dragMessage.style.borderRadius = "5px";
     dragMessage.style.top = `calc(${parseInt(
-      signatureImage.style.top
+      signatureImage.style.top,
     )}% - 30px)`;
     dragMessage.style.left = signatureImage.style.left;
     dragMessage.style.zIndex = "1000";
@@ -150,7 +150,7 @@ function previewSignature(sizePercent) {
       newX = Math.max(0, Math.min(newX, containerRect.width - imageRect.width));
       newY = Math.max(
         0,
-        Math.min(newY, containerRect.height - imageRect.height)
+        Math.min(newY, containerRect.height - imageRect.height),
       );
 
       const percentX = (newX / containerRect.width) * 100;
@@ -247,7 +247,7 @@ function saveSignature(userId, userCard, scale) {
   const signatureData = exportCanvas.toDataURL("image/png");
 
   const GOOGLE_SCRIPT_URL_CHU_KY =
-    "https://script.google.com/macros/s/AKfycbwhdp2yiphU2OuDgi79X3fC0ek_iL8zpTGaV8AXigUYsL_q8_Ok7vfvUrv03LNFCwVH/exec";
+    "https://script.google.com/macros/s/AKfycbwVZ2tS1MOZHq3gYuYfK1j84Fjt7wFCDFMqYMG7kkM1LKUpRnKW6ybkxtELug4iosRQ/exec";
 
   const data = {
     signature: signatureData,

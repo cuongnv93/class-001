@@ -1,0 +1,66 @@
+================================================================================
+HƯỚNG DẪN CHẠY TOOL TỰ ĐỘNG TÍCH HỢP TÍNH NĂNG LỚP HỌC SANG THIỆP MỚI
+================================================================================
+
+File này hướng dẫn bạn cách chạy script "safe_inject_features.py" để tự động sao chép
+tất cả các tệp tài nguyên (JS, CSS, hình ảnh) và tự động chèn mã nguồn giao diện lớp
+học mới sang một thư mục thiệp cưới mới mà KHÔNG làm thay đổi/ảnh hưởng đến các code
+gốc khác của thiệp mới đó (đã gỡ bỏ các CSS đè của album cũ).
+
+--------------------------------------------------------------------------------
+CÁCH 1: CHẠY TRỰC TIẾP BẰNG 1 DÒNG LỆNH (KHUYÊN DÙNG - NHANH NHẤT)
+--------------------------------------------------------------------------------
+
+Bạn có thể chạy trực tiếp từ bất kỳ thư mục nào bằng cách truyền đường dẫn nguồn 
+và đường dẫn đích trong 1 lệnh duy nhất.
+
+1. Mở PowerShell hoặc Command Prompt (cmd) trên máy tính.
+2. Chép lệnh dưới đây dán vào dòng lệnh và nhấn Enter:
+
+   python3 "d:\1\Mẫu thiệp\class\class-001\safe_inject_features.py" "d:\1\Mẫu thiệp\class\class-003"
+
+   * Giải thích:
+     - Đường dẫn thứ 1: Nơi chứa script chạy chính (nằm ở class-001).
+     - Đường dẫn thứ 2: Thư mục thiệp đích mới bạn muốn tích hợp (ví dụ: class-003, class-004...).
+       (Hãy thay đổi đường dẫn thứ 2 này ứng với dự án mới của bạn).
+
+--------------------------------------------------------------------------------
+CÁCH 2: CHẠY TỰ ĐỘNG DẠNG NHẬP ĐƯỜNG DẪN THỦ CÔNG
+--------------------------------------------------------------------------------
+
+1. Mở thư mục chứa code thiệp gốc:
+   d:\1\Mẫu thiệp\class\class-001
+
+2. Nhấn giữ phím "Shift" trên bàn phím và "Click chuột phải" vào khoảng trống bất kỳ 
+   trong thư mục này -> Chọn "Open PowerShell window here" (hoặc mở Terminal).
+
+3. Nhập lệnh sau và nhấn Enter:
+   python3 safe_inject_features.py
+
+4. Khi màn hình dòng lệnh hiện yêu cầu:
+   "Nhập đường dẫn tuyệt đối hoặc tương đối tới thư mục thiệp mới:"
+
+   Hãy gõ/dán đường dẫn của dự án mới. Ví dụ:
+   ..\class-003
+   (Hoặc dán đường dẫn đầy đủ: d:\1\Mẫu thiệp\class\class-003) và nhấn Enter.
+
+--------------------------------------------------------------------------------
+LƯU Ý KHI SỬ DỤNG VÀ KHÔI PHỤC (BACKUP):
+--------------------------------------------------------------------------------
+
+1. File Sao Lưu Dự Phòng:
+   Mỗi lần chạy lệnh thành công, script sẽ tự động tạo một file "index.html.bak" trong 
+   thư mục đích để lưu trữ trạng thái trước đó. 
+   Nếu muốn quay về phiên bản cũ chưa chèn code, bạn chỉ cần:
+   - Xóa file "index.html" hiện tại của dự án đích đi.
+   - Đổi tên file "index.html.bak" thành "index.html".
+
+2. Chạy Lại Nhiều Lần:
+   Script được thiết kế thông minh để kiểm tra trùng lặp. Nếu bạn đã chạy tích hợp 
+   vào thư mục đích đó rồi và chạy lại lần 2, script sẽ tự động bỏ qua việc tiêm mã 
+   giao diện (skip) để tránh bị lặp code trong file HTML của bạn.
+
+3. Bảo Toàn Album Gốc:
+   Script tự động phát hiện và gỡ bỏ việc nạp tệp "photoBook.js" trong file 
+   "renderTagScript.js" của dự án đích để giữ cho phần Album/Gallery mặc định của 
+   các dự án mới hoạt động bình thường, tránh xung đột UI.

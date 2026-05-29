@@ -468,10 +468,11 @@
         if (student) {
           seat.className = "seat-item";
 
-          // Thiết lập tooltip (Tên + Danh hiệu nếu có)
+          // Thiết lập tooltip (Tên + Các danh hiệu nếu có)
           let tooltipText = student.name;
-          if (seatAwards[student.name]) {
-            tooltipText += ` (${seatAwards[student.name].emoji} ${seatAwards[student.name].category.split(" ").slice(1).join(" ")})`;
+          if (seatAwards[student.name] && seatAwards[student.name].length > 0) {
+            const awardDetails = seatAwards[student.name].map(a => `${a.emoji} ${a.category.split(" ").slice(1).join(" ")}`);
+            tooltipText += ` (${awardDetails.join(", ")})`;
           }
           seat.setAttribute("data-tooltip", tooltipText);
 
@@ -479,14 +480,14 @@
           seat.innerHTML = `<img src="${avatarUrl}" alt="${student.name}" loading="lazy" onerror="this.onerror=null;this.src='${defaultAvatarSvg}';">`;
 
           // Huy hiệu danh hiệu trên sơ đồ
-          if (seatAwards[student.name]) {
+          if (seatAwards[student.name] && seatAwards[student.name].length > 0) {
             const badge = document.createElement("div");
             badge.className = "award-badge";
-            badge.textContent = seatAwards[student.name].emoji;
+            badge.textContent = seatAwards[student.name].map(a => a.emoji).join("");
             seat.appendChild(badge);
 
-            // Highlight viền bàn học có danh hiệu
-            seat.style.borderColor = "rgb(197, 168, 128)";
+            // Thêm class highlight đặc biệt cho bàn học đạt giải
+            seat.classList.add("awarded-seat");
           }
 
           // Sự kiện click xem chi tiết
@@ -497,13 +498,13 @@
             seat.classList.add("active-seat");
 
             let awardsHtml = "";
-            if (seatAwards[student.name]) {
-              awardsHtml = `
+            if (seatAwards[student.name] && seatAwards[student.name].length > 0) {
+              awardsHtml = seatAwards[student.name].map(award => `
                               <div class="profile-info-card" style="border-color: rgb(197, 168, 128); background: rgba(197, 168, 128, 0.15);">
                                   <span>🏆</span>
-                                  <div><strong>Danh hiệu:</strong> ${seatAwards[student.name].category}</div>
+                                  <div><strong>Danh hiệu:</strong> ${award.category} (${award.votes} phiếu)</div>
                               </div>
-                          `;
+                          `).join("");
             }
 
             profilePanel.innerHTML = `

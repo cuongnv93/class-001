@@ -8120,6 +8120,18 @@ var message="NoRightClicking"; function defeatIE() {if (document.all) {(message)
                         transform: scale(1.05);
                     }
 
+                    .seat-item.awarded-seat {
+                        border: 2px solid rgb(197, 168, 128) !important;
+                        box-shadow: 0 0 12px rgba(197, 168, 128, 0.45) !important;
+                        background: rgba(255, 252, 243, 0.95);
+                    }
+
+                    .seat-item.awarded-seat:hover {
+                        background: linear-gradient(135deg, rgb(197, 168, 128) 0%, rgb(220, 201, 172) 100%) !important;
+                        border-color: rgb(197, 168, 128) !important;
+                        box-shadow: 0 10px 22px rgba(197, 168, 128, 0.5) !important;
+                    }
+
                     .seat-item.empty-seat {
                         background: rgba(255, 255, 255, 0.25) !important;
                         border: 1px dashed rgba(168, 213, 186, 0.3) !important;
@@ -8490,10 +8502,11 @@ var message="NoRightClicking"; function defeatIE() {if (document.all) {(message)
                         position: absolute;
                         top: -5px;
                         right: -5px;
-                        font-size: 13px;
+                        font-size: 11px;
                         background: #fff;
-                        border-radius: 50%;
-                        width: 22px;
+                        border-radius: 11px;
+                        padding: 0 4px;
+                        min-width: 22px;
                         height: 22px;
                         display: flex;
                         align-items: center;
@@ -8631,6 +8644,8 @@ var message="NoRightClicking"; function defeatIE() {if (document.all) {(message)
                         background-image: radial-gradient(rgba(250, 95, 95, 0.08) 15%, transparent 16%);
                         background-size: 20px 20px;
                         min-height: 450px;
+                        max-height: 580px;
+                        overflow-y: auto;
                         border-radius: 16px;
                         padding: 30px 20px;
                         display: flex;
@@ -8639,6 +8654,21 @@ var message="NoRightClicking"; function defeatIE() {if (document.all) {(message)
                         justify-content: center;
                         position: relative;
                         border: 1px dashed rgba(168, 213, 186, 0.3);
+                    }
+
+                    .confessions-board::-webkit-scrollbar {
+                        width: 8px;
+                    }
+                    .confessions-board::-webkit-scrollbar-track {
+                        background: rgba(168, 213, 186, 0.05);
+                        border-radius: 8px;
+                    }
+                    .confessions-board::-webkit-scrollbar-thumb {
+                        background: rgba(168, 213, 186, 0.3);
+                        border-radius: 8px;
+                    }
+                    .confessions-board::-webkit-scrollbar-thumb:hover {
+                        background: rgba(168, 213, 186, 0.5);
                     }
 
                     /* Greeting Card Style Notes */

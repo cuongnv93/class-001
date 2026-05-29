@@ -16,7 +16,7 @@
 
   // TÍNH TOÁN HỌC SINH ĐOẠT GIẢI NHẤT MỖI DANH HIỆU
   window.getSeatAwards = function () {
-    const awards = {}; // maps studentName -> { category, emoji, votes }
+    const awards = {}; // maps studentName -> Array of { category, emoji, votes }
 
     for (const category in window.currentVotes) {
       const studentVotes = window.currentVotes[category];
@@ -35,14 +35,14 @@
         const parts = category.split(" ");
         const emoji = parts[0];
 
-        // Nếu học sinh đoạt nhiều giải, chọn giải có số lượt vote cao nhất
-        if (!awards[winner] || awards[winner].votes < maxVotes) {
-          awards[winner] = {
-            category: category,
-            emoji: emoji,
-            votes: maxVotes,
-          };
+        if (!awards[winner]) {
+          awards[winner] = [];
         }
+        awards[winner].push({
+          category: category,
+          emoji: emoji,
+          votes: maxVotes,
+        });
       }
     }
     return awards;
@@ -55,8 +55,17 @@
 
     leaderboardGrid.innerHTML = "";
 
-    for (const category in window.currentVotes) {
-      const studentVotes = window.currentVotes[category];
+    const allCategories = [
+      "👑 Lớp trưởng quốc dân",
+      "😴 Chiến thần ngủ gật",
+      "🤡 Danh hài nhân dân",
+      "📚 Mọt sách học bá",
+      "🏃 Chiến thần thể thao",
+      "💅 Nam thanh nữ tú"
+    ];
+
+    allCategories.forEach((category) => {
+      const studentVotes = (window.currentVotes && window.currentVotes[category]) || {};
       let maxVotes = 0;
       let winnerName = "";
 
@@ -100,7 +109,7 @@
       }
 
       leaderboardGrid.appendChild(card);
-    }
+    });
   };
 
   // Khởi tạo hoặc đọc mã người bầu (Voter ID) từ localStorage để chống spam

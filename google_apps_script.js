@@ -1,22 +1,34 @@
 /**
- * GOOGLE APPS SCRIPT ĐÃ TÍCH HỢP (FORM + CHỮ KÝ + BÌNH CHỌN VUI)
+ * GOOGLE APPS SCRIPT ĐÃ TÍCH HỢP (FORM + CHỮ KÝ + BÌNH CHỌN VUI + CONFESSIONS)
  * Dành cho URL: https://script.google.com/macros/s/AKfycbwhdp2yiphU2OuDgi79X3fC0ek_iL8zpTGaV8AXigUYsL_q8_Ok7vfvUrv03LNFCwVH/exec
  * 
- * Các Tab Trang Tính cần có trong File Google Sheets:
- * - Tab 1 (Index 0): Tab nhận dữ liệu Form gửi lời nhắn.
- * - Tab 2 (Index 1): Tab nhận dữ liệu Chữ ký (ChuKy).
- * - Tab 3 (Index 2): Tab khác (nếu có).
- * - Tab 4 (Index 3): Tab "Bình chọn vui" nhận nhật ký bình chọn (BinhChon).
+ * Các GID của các Tab Trang Tính cần khớp:
+ * - Tab 1 (Index 0): Nhận dữ liệu Form gửi lời nhắn RSVP.
+ * - Tab 2 (Index 1): Nhận dữ liệu Chữ ký (ChuKy).
+ * - Tab 3 (Confessions - GID: 1539399183): Nhận lưu bút ẩn danh (Confession).
+ * - Tab 4 (Bình chọn vui - GID: 2086677035): Nhận nhật ký bình chọn (BinhChon).
  */
 
-// 1. XỬ LÝ LỆNH GET (Lấy dữ liệu phiếu bầu tổng hợp gửi về cho Web hiển thị Bảng xếp hạng)
+// Hàm phụ trợ tìm Tab Trang tính theo số GID (đảm bảo không bị lỗi khi sắp xếp lại Tab)
+function getSheetByGid(ss, gid) {
+  var sheets = ss.getSheets();
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].getSheetId().toString() === gid.toString()) {
+      return sheets[i];
+    }
+  }
+  return null;
+}
+
+// 1. XỬ LÝ LỆNH GET (Lấy dữ liệu phiếu bầu tổng hợp và lưu bút gửi về cho Web)
 function doGet(e) {
   try {
     var action = e.parameter.action;
     var ss = SpreadsheetApp.getActiveSpreadsheet();
     
     if (action === "get") {
-      var sheet4 = ss.getSheets()[3]; // Sheet thứ tư (Tab Bình chọn vui)
+      // 1. Lấy dữ liệu bình chọn vui (Tab GID: 2086677035)
+      var sheet4 = getSheetByGid(ss, "2086677035") || ss.getSheets()[3];
       var data = sheet4.getDataRange().getValues();
       var votes = {};
       
@@ -36,9 +48,34 @@ function doGet(e) {
         }
         votes[category][candidate]++;
       }
+
+      // 2. Lấy dữ liệu Confessions (Tab GID: 1539399183)
+      var confessions = [];
+      var sheet3 = getSheetByGid(ss, "1539399183") || (ss.getSheets().length > 2 ? ss.getSheets()[2] : null);
+      if (sheet3) {
+        var data3 = sheet3.getDataRange().getValues();
+        
+        // Đọc ngược từ cuối lên đầu dòng (bỏ qua tiêu đề index 0) để hiển thị mới nhất trước
+        for (var j = data3.length - 1; j >= 1; j--) {
+          var row3 = data3[j];
+          var timeVal = row3[0];
+          var authorVal = row3[1];
+          var textVal = row3[2];
+          var colorVal = row3[3];
+          
+          if (!textVal) continue;
+          
+          confessions.push({
+            author: authorVal || 'Ẩn danh',
+            text: textVal,
+            color: colorVal || 'pink',
+            time: timeVal ? new Date(timeVal).getTime() : Date.now()
+          });
+        }
+      }
       
       return ContentService
-        .createTextOutput(JSON.stringify({ votes: votes }))
+        .createTextOutput(JSON.stringify({ votes: votes, confessions: confessions }))
         .setMimeType(ContentService.MimeType.JSON);
     }
     
@@ -52,13 +89,12 @@ function doGet(e) {
   }
 }
 
-// 2. XỬ LÝ LỆNH POST (Nhận dữ liệu Form, Chữ ký và Bình chọn gửi lên từ Web)
+// 2. XỬ LÝ LỆNH POST (Nhận dữ liệu Form, Chữ ký, Bình chọn và Confessions gửi lên từ Web)
 function doPost(e) {
   try {
-    var ss = SpreadsheetApp.getActiveSpreadsheet(); // Đây mới là toàn bộ file
+    var ss = SpreadsheetApp.getActiveSpreadsheet();
     var sheet1 = ss.getSheets()[0]; // Sheet thứ nhất
     var sheet2 = ss.getSheets()[1]; // Sheet thứ hai
-    var sheet4 = ss.getSheets()[3]; // Sheet thứ tư (Tab Bình chọn vui)
 
     var data = JSON.parse(e.postData.contents);
     var formType = data.formType;
@@ -83,8 +119,7 @@ function doPost(e) {
       var voterName = data.voterName || 'Ẩn danh';
       var voterId = data.voterId || '';
 
-      // Ghi nhật ký bình chọn vào Sheet 4 (Tab Bình chọn vui)
-      // Cột A: Thời gian, Cột B: Danh hiệu, Cột C: Học sinh được bầu, Cột D: Người bầu, Cột E: Mã người bầu
+      var sheet4 = getSheetByGid(ss, "2086677035") || ss.getSheets()[3];
       sheet4.appendRow([
         new Date(),
         category,
@@ -92,6 +127,21 @@ function doPost(e) {
         voterName,
         voterId
       ]);
+    } else if (formType === 'Confession') {
+      var author = data.author || 'Ẩn danh';
+      var text = data.text || '';
+      var color = data.color || 'pink';
+      var time = data.time || Date.now();
+
+      var sheet3 = getSheetByGid(ss, "1539399183") || (ss.getSheets().length > 2 ? ss.getSheets()[2] : null);
+      if (sheet3) {
+        sheet3.appendRow([
+          new Date(time),
+          author,
+          text,
+          color
+        ]);
+      }
     } else {
       // Mặc định: Xử lý Form gửi lời nhắn thông thường ghi vào Sheet 1
       var name = data.name || '';

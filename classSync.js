@@ -22,6 +22,14 @@
         voterName: data.voterName,
         voterId: data.voterId,
       };
+    } else if (action === "confession") {
+      payload = {
+        formType: "Confession",
+        author: data.author,
+        text: data.text,
+        color: data.color,
+        time: data.time
+      };
     } else {
       payload = { action: action, data: data };
     }
@@ -59,10 +67,6 @@
         }
         if (data.confessions) {
           window.currentConfessions = data.confessions;
-          localStorage.setItem(
-            "anonymous_confessions",
-            JSON.stringify(window.currentConfessions),
-          );
           if (typeof window.renderConfessionsBoard === "function")
             window.renderConfessionsBoard();
         }

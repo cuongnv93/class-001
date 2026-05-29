@@ -11,13 +11,9 @@
         { author: "Ẩn danh", text: "Lớp mình là tuyệt vời nhất! 12A1 mãi đỉnh!!", color: "cream", time: now - 24 * 60 * 60 * 1000 }      // 1 ngày trước
     ];
 
-    // Tải confessions từ localStorage hoặc mock data
-    try {
-        const savedConfessions = localStorage.getItem("anonymous_confessions");
-        window.currentConfessions = savedConfessions ? JSON.parse(savedConfessions) : JSON.parse(JSON.stringify(confessionsListMock));
-    } catch (e) {
-        window.currentConfessions = JSON.parse(JSON.stringify(confessionsListMock));
-    }
+    // Khởi tạo danh sách trống, confessions sẽ được tải hoàn toàn từ Google Sheet
+    localStorage.removeItem("anonymous_confessions");
+    window.currentConfessions = [];
 
     // HÀM TÍNH THỜI GIAN ĐỘNG (REAL-TIME RELATIVE TIME)
     function formatRelativeTime(timeVal) {
@@ -123,18 +119,15 @@
                     time: Date.now() // Lưu timestamp thực tế thay vì chuỗi chữ cố định
                 };
 
-                window.currentConfessions.unshift(newConfession);
-
-                // Lưu lại localStorage
-                localStorage.setItem("anonymous_confessions", JSON.stringify(window.currentConfessions));
-
                 // Đồng bộ hóa với Google Sheets (nếu có)
                 if (typeof window.syncWithGoogleSheets === "function") {
-                    window.syncWithGoogleSheets("confession", newConfession);
+                    window.syncWithGoogleSheets("confession", newConfession, function() {
+                        // Tải lại dữ liệu mới nhất từ Google Sheets và vẽ lại bảng ghim
+                        if (typeof window.fetchLatestFromGoogleSheets === "function") {
+                            window.fetchLatestFromGoogleSheets();
+                        }
+                    });
                 }
-
-                // Cập nhật lại giao diện
-                window.renderConfessionsBoard();
 
                 // Reset form
                 authorInput.value = '';

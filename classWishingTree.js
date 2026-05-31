@@ -186,15 +186,9 @@
     },
   ];
 
-  // Tải dữ liệu từ localStorage hoặc mock data
-  try {
-    const savedWishes = localStorage.getItem("class_wishes");
-    window.currentWishes = savedWishes
-      ? JSON.parse(savedWishes)
-      : JSON.parse(JSON.stringify(wishesListMock));
-  } catch (e) {
-    window.currentWishes = JSON.parse(JSON.stringify(wishesListMock));
-  }
+  // Khởi tạo danh sách trống, wishes sẽ được tải hoàn toàn từ Google Sheet
+  localStorage.removeItem("class_wishes");
+  window.currentWishes = [];
 
   // Định nghĩa chính xác 30 tọa độ tương ứng với vị trí các cành cây SVG (dành cho cây Tanzaku Nhật Bản sum suê)
   const LEAF_POSITIONS = [
@@ -304,10 +298,9 @@
       const delay = (Math.random() * -3).toFixed(2);
       leaf.style.animationDelay = `${delay}s`;
 
-      // TÁCH LẤY TÊN Ở CUỐI MỖI CHỮ (Ví dụ: "Nguyễn Văn Cường" -> "Cường")
+      // HIỂN THỊ TÊN ĐẦY ĐỦ NHƯ BÌNH THƯỜNG
       const authorName = wish.author.trim();
-      const nameParts = authorName.split(/\s+/);
-      const displayName = nameParts[nameParts.length - 1] || "Ẩn danh";
+      const displayName = authorName || "Ẩn danh";
 
       leaf.innerHTML = `
                 <div class="wishing-leaf-tooltip">Điều ước của ${escapeHtml(wish.author)}</div>
@@ -339,6 +332,13 @@
     const modal = document.getElementById("wish-detail-modal");
     if (!modal) return;
 
+    // Thay đổi màu nền của modal card theo chủ đề của điều ước
+    const content = modal.querySelector(".wishing-modal-content");
+    if (content) {
+      content.classList.remove("red", "green", "gold");
+      content.classList.add(wish.theme || "red");
+    }
+
     let icon = "🔴";
     if (wish.theme === "green") icon = "🍃";
     if (wish.theme === "gold") icon = "✨";
@@ -360,6 +360,23 @@
     if (!modal || !container) return;
 
     container.innerHTML = "";
+
+    if (!window.currentWishes || window.currentWishes.length === 0) {
+      const emptyMsg = document.createElement("div");
+      emptyMsg.className = "wishes-empty-message";
+      emptyMsg.style.textAlign = "center";
+      emptyMsg.style.width = "100%";
+      emptyMsg.style.gridColumn = "1 / -1";
+      emptyMsg.style.padding = "40px 20px";
+      emptyMsg.style.fontSize = "16px";
+      emptyMsg.style.color = "#778c80";
+      emptyMsg.style.fontFamily = "'Philosopher', serif";
+      emptyMsg.style.fontStyle = "italic";
+      emptyMsg.innerHTML = "🌱 Chưa có điều ước nào được treo. Hãy bắt đầu gửi điều ước thanh xuân của bạn ngay nhé!";
+      container.appendChild(emptyMsg);
+      modal.classList.add("active");
+      return;
+    }
 
     window.currentWishes.forEach((wish) => {
       const card = document.createElement("div");
@@ -448,15 +465,15 @@
         // Thêm vào đầu danh sách
         window.currentWishes.unshift(newWish);
 
-        // Lưu vào localStorage
-        localStorage.setItem(
-          "class_wishes",
-          JSON.stringify(window.currentWishes),
-        );
+
 
         // Đồng bộ hóa với Google Sheets (nếu có cấu hình)
         if (typeof window.syncWithGoogleSheets === "function") {
-          window.syncWithGoogleSheets("wish", newWish);
+          window.syncWithGoogleSheets("wish", newWish, function() {
+            if (typeof window.fetchLatestFromGoogleSheets === "function") {
+              window.fetchLatestFromGoogleSheets();
+            }
+          });
         }
 
         // Cập nhật lại giao diện cây

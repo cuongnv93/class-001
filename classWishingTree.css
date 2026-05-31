@@ -329,7 +329,7 @@
     width: 100%;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     overflow: hidden;
     white-space: nowrap;
     text-align: center;
@@ -712,6 +712,24 @@
         opacity: 0;
     }
 }
+
+/* Modal wishing card themes */
+.wishing-modal-content.red {
+    background: linear-gradient(135deg, #FFF0F0 0%, #FFD8D8 100%);
+    border-color: rgba(197, 42, 42, 0.15);
+}
+.wishing-modal-content.green {
+    background: linear-gradient(135deg, #EEF8F1 0%, #D8F0DF 100%);
+    border-color: rgba(62, 124, 89, 0.15);
+}
+.wishing-modal-content.gold {
+    background: linear-gradient(135deg, #FCF7E9 0%, #F5ECC9 100%);
+    border-color: rgba(181, 132, 27, 0.15);
+}
+
+.wishing-modal-content.red .wish-card-footer { color: #C92A2A; border-color: rgba(197, 42, 42, 0.15); }
+.wishing-modal-content.green .wish-card-footer { color: #3E7C59; border-color: rgba(62, 124, 89, 0.15); }
+.wishing-modal-content.gold .wish-card-footer { color: #B5841B; border-color: rgba(181, 132, 27, 0.15); }
 
 /* RESPONSIVE LAYOUT OVERRIDES */
 @media (max-width: 959px) {

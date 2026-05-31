@@ -30,6 +30,14 @@
         color: data.color,
         time: data.time
       };
+    } else if (action === "wish") {
+      payload = {
+        formType: "Wish",
+        author: data.author,
+        text: data.text,
+        theme: data.theme,
+        time: data.time
+      };
     } else {
       payload = { action: action, data: data };
     }
@@ -72,10 +80,6 @@
         }
         if (data.wishes) {
           window.currentWishes = data.wishes;
-          localStorage.setItem(
-            "class_wishes",
-            JSON.stringify(window.currentWishes),
-          );
           if (typeof window.renderWishingTree === "function")
             window.renderWishingTree();
         }
